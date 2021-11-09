@@ -52,11 +52,6 @@ import { Component, OnInit } from '@angular/core';
         </span>
       </p>
     </div>
-    <div class="field">
-      <p class="control">
-        <button class="button is-success">Login</button>
-      </p>
-    </div>
 
     <div class="field">
     <label class="label">Confirm Password</label>
@@ -69,7 +64,7 @@ import { Component, OnInit } from '@angular/core';
     </div>
     <div class="field">
       <p class="control">
-        <button class="button is-success">Login</button>
+        <button class="button is-success" onclick="register()">Register</button>
       </p>
     </div>
     <!------------------------------end html code------------------------------>

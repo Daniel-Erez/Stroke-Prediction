@@ -12,7 +12,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="email"
           placeholder="Email"
-          onchange="loginemailinputStyle()"
+          onchange="loginEmailInputStyle()"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
@@ -30,7 +30,7 @@ import { Component, OnInit } from "@angular/core";
     <div class="field">
     <label class="label">Password</label>
       <p class="control has-icons-left">
-        <input class="input" type="password" placeholder="Password" />
+        <input id="login_password_input" class="input" type="password" placeholder="Password" />
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
