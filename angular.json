@@ -50,9 +50,13 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bulma/css/bulma.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/app/app.functionality.js"
+            ]
           },
           "configurations": {
             "production": {
