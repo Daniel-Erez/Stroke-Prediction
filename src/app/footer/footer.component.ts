@@ -4,8 +4,9 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-footer',
   template: `
   <!------------------------------start html code------------------------------>
-    <footer class="footer">
-      <div class="container content has-text-centered">
+  <br/>  
+  <footer class="footer has-background-light">
+      <div class="container content has-text-centered ">
         <p>Made with 💕 by Mechanical Monsters</p>
       </div>
     </footer>

@@ -17,7 +17,7 @@ import { Component, OnInit } from "@angular/core";
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
-        <span id="login_email_icon_triangle" class="icon is-small is-right">
+        <span id="login_email_icon_triangle" class="icon is-small is-right" style="display:none;">
           <i class="fas fa-exclamation-triangle"></i>
         </span>
         <span id="login_email_icon_check" class="icon is-small is-right" style="display:none;">

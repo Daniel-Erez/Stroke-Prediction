@@ -14,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
         <a class="navbar-item">temp</a>
       </div>
     </div>
+    <br/>
 <!------------------------------end html code------------------------------>
   `,
   styles: []

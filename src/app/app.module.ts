@@ -8,16 +8,17 @@ import { HeaderComponent } from './header/header.component';
 import { LoginfieldsComponent } from './loginfields/loginfields.component';
 import { RegisterfieldsComponent } from './registerfields/registerfields.component';
 import { NoneComponent } from './none/none.component';
-
+import { HomeComponent } from './home/home.component';
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     FooterComponent,
     HeaderComponent,
     LoginfieldsComponent,
     RegisterfieldsComponent,
-    NoneComponent
-  ],
+    NoneComponent,
+    HomeComponent,
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule
