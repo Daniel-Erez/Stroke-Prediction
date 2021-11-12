@@ -14,6 +14,18 @@ import { Component, OnInit } from "@angular/core";
             alt="logo"
           />
         </a>
+
+        <a id="main-burger"
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="true"
+          data-target="nav-for-unlogged-users"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
 
       <div id="nav-for-unlogged-users" class="navbar-menu">

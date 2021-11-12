@@ -1,7 +1,36 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(
+    document.querySelectorAll(".navbar-burger"),
+    0
+  );
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+    // Add a click event on each of them
+    $navbarBurgers.forEach((el) => {
+      el.addEventListener("click", () => {
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle("is-active");
+        if(el.classList.contains("is-active")){
+          $target.classList.add("is-active");
+        }else{
+          $target.classList.remove("is-active");
+        }
+      });
+    });
+  }
+});
+
 firebase.auth().onAuthStateChanged(function (user) {
   var navlogin = document.getElementById("nav-for-logged-users");
   var navlogout = document.getElementById("nav-for-unlogged-users");
-  var userForbidden=["/login", "/register"];
+  var burger = document.getElementById("main-burger");
+  var userForbidden = ["/login", "/register"];
   if (user && userForbidden.includes(location.pathname)) {
     document.getElementById("go-home").click();
   }
@@ -10,9 +39,11 @@ firebase.auth().onAuthStateChanged(function (user) {
       // User is signed in.
       navlogin.setAttribute("style", "");
       navlogout.setAttribute("style", "display:none;");
+      burger.setAttribute("data-target", "nav-for-logged-users");
     } else {
       navlogin.setAttribute("style", "display:none;");
       navlogout.setAttribute("style", "");
+      burger.setAttribute("data-target", "nav-for-unlogged-users");
     }
   }
 });
@@ -38,8 +69,8 @@ function login() {
   });
 }
 
-function register(){
-    window.alert('this button is under development!');
+function register() {
+  window.alert("this button is under development!");
 }
 
 function logout() {
