@@ -4,7 +4,8 @@ import { Component, OnInit } from "@angular/core";
   selector: "app-header",
   template: `
     <!------------------------------start html code------------------------------>
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+    <div id="head-nav">
+    <nav id = "nav-logout" class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" routerLink="/logo">
           <img
@@ -15,12 +16,13 @@ import { Component, OnInit } from "@angular/core";
           />
         </a>
 
-        <a id="main-burger"
+        <a
+          id="main-burger"
           role="button"
           class="navbar-burger"
           aria-label="menu"
           aria-expanded="true"
-          data-target="nav-for-unlogged-users"
+          data-target="main-menu"
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -28,7 +30,7 @@ import { Component, OnInit } from "@angular/core";
         </a>
       </div>
 
-      <div id="nav-for-unlogged-users" class="navbar-menu">
+      <div id="main-menu" class="navbar-menu">
         <div class="navbar-start">
           <a class="navbar-item" routerLink="">Home</a>
           <a class="navbar-item" onclick="temp()">temp</a>
@@ -47,11 +49,37 @@ import { Component, OnInit } from "@angular/core";
           </div>
         </div>
       </div>
+    </nav>
 
-      <div id="nav-for-logged-users" class="navbar-menu" style="display:none;">
+    <nav id = "nav-login" class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" routerLink="/logo">
+          <img
+            src="./assets/img/testing logo.png"
+            width="112"
+            height="28"
+            alt="logo"
+          />
+        </a>
+
+        <a
+          id="main-burger"
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="true"
+          data-target="main-menu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="main-menu" class="navbar-menu" style="">
         <div class="navbar-start">
           <a class="navbar-item" routerLink="">Home</a>
-          <a class="navbar-item" routerLink="">Profile</a>
+          <a class="navbar-item" routerLink="profile">Profile</a>
         </div>
 
         <div class="navbar-end">
@@ -68,6 +96,7 @@ import { Component, OnInit } from "@angular/core";
         </div>
       </div>
     </nav>
+    </div>
     <br />
     <!------------------------------end html code------------------------------>
   `,

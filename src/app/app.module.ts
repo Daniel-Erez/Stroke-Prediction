@@ -9,6 +9,7 @@ import { LoginfieldsComponent } from './loginfields/loginfields.component';
 import { RegisterfieldsComponent } from './registerfields/registerfields.component';
 import { NoneComponent } from './none/none.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [	
     AppComponent,
@@ -18,6 +19,7 @@ import { HomeComponent } from './home/home.component';
     RegisterfieldsComponent,
     NoneComponent,
     HomeComponent,
+    ProfileComponent,
    ],
   imports: [
     BrowserModule,

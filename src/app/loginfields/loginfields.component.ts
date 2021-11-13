@@ -17,14 +17,11 @@ import { Component, OnInit } from "@angular/core";
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
-        <span id="login_email_icon_triangle" class="icon is-small is-right" style="display:none;">
-          <i class="fas fa-exclamation-triangle"></i>
-        </span>
-        <span id="login_email_icon_check" class="icon is-small is-right" style="display:none;">
-          <i class="fas fa-check"></i>
+        <span class="icon is-small is-right">
+          <i id="login_email_icon" class="fas"></i>
         </span>
       </div>
-      <p id="login_email_help" class="help is-danger" style="display:none;">invalid email</p>
+      <p id="login_email_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
