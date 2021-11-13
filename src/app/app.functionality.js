@@ -139,6 +139,6 @@ function validateEmail(email) {
 function temp() {
   var hi = location.hash;
   var loged = window.sessionStorage.getItem("log");
-  console.log(hi=='#/profile');
+  console.log(hi);
   console.log(loged);
 }

@@ -14,12 +14,6 @@ import { Component } from '@angular/core';
   <!-- footer -->
   <app-footer></app-footer>
 
-  
-  <!-- router-navigators [to use: document.getElementById("go-home").click();] -->
-  <a id="go-home" routerLink=""></a>
-  <a id="go-login" routerLink="/login"></a>
-  <a id="go-register" routerLink="/register"></a>
-  <a id="go-logo" routerLink="/logo"></a>
   `,
   styles: []
 })
