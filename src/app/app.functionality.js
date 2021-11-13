@@ -1,3 +1,8 @@
+window.addEventListener('hashchange', function(){
+  var loged = window.sessionStorage.getItem("log");
+  changeLocation(loged);
+})
+
 document.addEventListener("DOMContentLoaded", () => {
   var navin=window.sessionStorage.getItem("navIn");
   var navout=window.sessionStorage.getItem("navOut");
@@ -7,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.sessionStorage.setItem("navIn", navin);
     window.sessionStorage.setItem("navOut", navout);
   }
-
   if (window.sessionStorage.getItem("log") == null) {
     window.sessionStorage.setItem("log", "false");
   }
@@ -66,13 +70,13 @@ function fixBurgers(){
 }
 
 function changeLocation(loged) {
-  var userForbidden = ["/login", "/register"];
-  var notUserForbidden = ["/profile"];
+  var userForbidden = ["#/login", "#/register"];
+  var notUserForbidden = ["#/profile"];
   if (
-    (loged == "true" && userForbidden.includes(location.pathname)) ||
-    (loged == "false" && notUserForbidden.includes(location.pathname))
+    (loged == "true" && userForbidden.includes(location.hash)) ||
+    (loged == "false" && notUserForbidden.includes(location.hash))
   ) {
-    document.getElementById("go-home").click();
+    location.hash='#/';
   }
 }
 
@@ -133,6 +137,8 @@ function validateEmail(email) {
 }
 
 function temp() {
-  var hi = location.pathname;
-  console.log(hi);
+  var hi = location.hash;
+  var loged = window.sessionStorage.getItem("log");
+  console.log(hi=='#/profile');
+  console.log(loged);
 }
