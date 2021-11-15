@@ -12,7 +12,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="email"
           placeholder="Email"
-          onchange="loginEmailInputStyle()"
+          onchange="inputStyle('login', 'email')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>

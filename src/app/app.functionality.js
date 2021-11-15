@@ -1,12 +1,12 @@
-window.addEventListener('hashchange', function(){
+window.addEventListener("hashchange", function () {
   var loged = window.sessionStorage.getItem("log");
   changeLocation(loged);
-})
+});
 
 document.addEventListener("DOMContentLoaded", () => {
-  var navin=window.sessionStorage.getItem("navIn");
-  var navout=window.sessionStorage.getItem("navOut");
-  if (navin == null || navout==null) {
+  var navin = window.sessionStorage.getItem("navIn");
+  var navout = window.sessionStorage.getItem("navOut");
+  if (navin == null || navout == null) {
     navin = document.getElementById("nav-login").outerHTML;
     navout = document.getElementById("nav-logout").outerHTML;
     window.sessionStorage.setItem("navIn", navin);
@@ -34,18 +34,19 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 function changeHeader(loged) {
   var body = document.getElementById("head-nav");
-  if(body!=null){
-  body.innerHTML="";
-  if (loged == "true") {
-    var nav = window.sessionStorage.getItem("navIn");
-  } else {
-    var nav = window.sessionStorage.getItem("navOut");
+  if (body != null) {
+    body.innerHTML = "";
+    if (loged == "true") {
+      var nav = window.sessionStorage.getItem("navIn");
+    } else {
+      var nav = window.sessionStorage.getItem("navOut");
+    }
+    body.insertAdjacentHTML("afterbegin", nav);
+    fixBurgers();
   }
-  body.insertAdjacentHTML('afterbegin', nav);
-  fixBurgers();
-}}
+}
 
-function fixBurgers(){
+function fixBurgers() {
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.prototype.slice.call(
     document.querySelectorAll(".navbar-burger"),
@@ -76,7 +77,7 @@ function changeLocation(loged) {
     (loged == "true" && userForbidden.includes(location.hash)) ||
     (loged == "false" && notUserForbidden.includes(location.hash))
   ) {
-    location.hash='#/';
+    location.hash = "#/";
   }
 }
 
@@ -108,32 +109,65 @@ function logout() {
 }
 
 function register() {
-  window.alert("this button is under development!");
+  var userName = document.getElementById("register_nickname_input").value;
+  var userEmail = document.getElementById("register_email_input").value;
+  var userPass = document.getElementById("register_password_input").value;
+  if (
+    [
+      inputStyle("register", "nickname"),
+      inputStyle("register", "email"),
+      inputStyle("register", "password"),
+      inputStyle("register", "confirm_password"),
+    ].every((x) => x)
+  ) {
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPass)
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            window.alert("Error ["+errorCode+"]: " + errorMessage);
+        });
+  } else {
+    window.alert("complete all fields!");
+  }
 }
 
-function loginEmailInputStyle() {
-  var email = document.getElementById("login_email_input").value;
-  var inpt = document.getElementById("login_email_input");
-  var icon = document.getElementById("login_email_icon");
-  var help = document.getElementById("login_email_help");
-  if (validateEmail(email)) {
+function inputStyle(fieldPurpose, fieldRole) {
+  var val = document.getElementById(
+    fieldPurpose + "_" + fieldRole + "_input"
+  ).value;
+  var inpt = document.getElementById(fieldPurpose + "_" + fieldRole + "_input");
+  var icon = document.getElementById(fieldPurpose + "_" + fieldRole + "_icon");
+  var help = document.getElementById(fieldPurpose + "_" + fieldRole + "_help");
+  var roles = {
+    email: { message: "must be a valid email", pattern: /\S+@\S+\.\S+/ },
+    password: {
+      message: "must be at least 8 characters long",
+      pattern: /.{8,}/,
+    },
+    nickname: { message: "must be a non-spaced phrase", pattern: /^\S+/ },
+    confirm_password: {
+      message: "must match the password above",
+      pattern: new RegExp(
+        document.getElementById(fieldPurpose + "_password_input").value
+      ),
+    },
+  };
+  if (val.match(roles[fieldRole]["pattern"]) == val) {
     inpt.classList.add("is-success");
     inpt.classList.remove("is-danger");
     icon.classList.add("fa-check");
     icon.classList.remove("fa-exclamation-triangle");
     help.innerHTML = "";
+    return true;
   } else {
     inpt.classList.remove("is-success");
     inpt.classList.add("is-danger");
     icon.classList.remove("fa-check");
     icon.classList.add("fa-exclamation-triangle");
-    help.innerHTML = "invalid email";
+    help.innerHTML = roles[fieldRole]["message"];
+    return false;
   }
-}
-
-function validateEmail(email) {
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
 }
 
 function temp() {
