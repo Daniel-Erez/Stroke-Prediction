@@ -198,5 +198,4 @@ function temp() {
   var loged = window.sessionStorage.getItem("log");
   console.log(hash);
   console.log(loged);
-  getData("users", "LA");
 }
