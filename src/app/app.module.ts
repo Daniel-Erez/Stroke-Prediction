@@ -11,6 +11,7 @@ import { NoneComponent } from "./none/none.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
+
 @NgModule({
   declarations: [
     AppComponent,

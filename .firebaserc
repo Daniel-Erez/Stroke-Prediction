@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "strk-prdct": {
+      "hosting": {
+        "strkpre": [
+          "strk-prdct"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "strk-prdct"
+  }
+}

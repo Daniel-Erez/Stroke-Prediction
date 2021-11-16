@@ -1,8 +1,9 @@
+//change location
 window.addEventListener("hashchange", function () {
-  var loged = window.sessionStorage.getItem("log");
-  changeLocation(loged);
+  valiadtions();
 });
 
+//refresh or first load of app
 document.addEventListener("DOMContentLoaded", () => {
   var navin = window.sessionStorage.getItem("navIn");
   var navout = window.sessionStorage.getItem("navOut");
@@ -15,120 +16,142 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.sessionStorage.getItem("log") == null) {
     window.sessionStorage.setItem("log", "false");
   }
-  var loged = window.sessionStorage.getItem("log");
-  changeHeader(loged);
-  changeLocation(loged);
+  valiadtions();
 });
 
-firebase.auth().onAuthStateChanged(function (user) {
+//after user login or logout
+auth.onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
     window.sessionStorage.setItem("log", "true");
   } else {
     window.sessionStorage.setItem("log", "false");
   }
-  var loged = window.sessionStorage.getItem("log");
-  changeHeader(loged);
-  changeLocation(loged);
+  valiadtions();
 });
 
-function changeHeader(loged) {
-  var body = document.getElementById("head-nav");
-  if (body != null) {
-    body.innerHTML = "";
-    if (loged == "true") {
-      var nav = window.sessionStorage.getItem("navIn");
-    } else {
-      var nav = window.sessionStorage.getItem("navOut");
+{//validations (header, burgers, location and profile)
+  function valiadtions() {
+    var loged = window.sessionStorage.getItem("log");
+    headerValidate(loged);
+    locationValidate(loged);
+    loadProfile();
+  }
+  function headerValidate(loged) {
+    var body = document.getElementById("head-nav");
+    if (body != null) {
+      body.innerHTML = "";
+      if (loged == "true") {
+        var nav = window.sessionStorage.getItem("navIn");
+      } else {
+        var nav = window.sessionStorage.getItem("navOut");
+      }
+      body.insertAdjacentHTML("afterbegin", nav);
+      fixBurgers();
     }
-    body.insertAdjacentHTML("afterbegin", nav);
-    fixBurgers();
   }
-}
+  function fixBurgers() {
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(
+      document.querySelectorAll(".navbar-burger"),
+      0
+    );
 
-function fixBurgers() {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+      // Add a click event on each of them
+      $navbarBurgers.forEach((el) => {
+        el.addEventListener("click", () => {
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
 
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-    // Add a click event on each of them
-    $navbarBurgers.forEach((el) => {
-      el.addEventListener("click", () => {
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
-
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle("is-active");
-        $target.classList.toggle("is-active");
-      });
-    });
-  }
-}
-
-function changeLocation(loged) {
-  var userForbidden = ["#/login", "#/register"];
-  var notUserForbidden = ["#/profile"];
-  if (
-    (loged == "true" && userForbidden.includes(location.hash)) ||
-    (loged == "false" && notUserForbidden.includes(location.hash))
-  ) {
-    location.hash = "#/";
-  }
-}
-
-function login() {
-  var userEmail = document.getElementById("login_email_input").value;
-  var userPass = document.getElementById("login_password_input").value;
-
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(userEmail, userPass)
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      window.alert("Error : " + errorMessage);
-    });
-}
-
-function logout() {
-  firebase
-    .auth()
-    .signOut()
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      window.alert("Error : " + errorMessage);
-    });
-}
-
-function register() {
-  var userName = document.getElementById("register_nickname_input").value;
-  var userEmail = document.getElementById("register_email_input").value;
-  var userPass = document.getElementById("register_password_input").value;
-  if (
-    [
-      inputStyle("register", "nickname"),
-      inputStyle("register", "email"),
-      inputStyle("register", "password"),
-      inputStyle("register", "confirm_password"),
-    ].every((x) => x)
-  ) {
-    firebase.auth().createUserWithEmailAndPassword(userEmail, userPass)
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-
-            window.alert("Error ["+errorCode+"]: " + errorMessage);
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle("is-active");
+          $target.classList.toggle("is-active");
         });
-  } else {
-    window.alert("complete all fields!");
+      });
+    }
+  }
+  function locationValidate(loged) {
+    var userForbidden = ["#/login", "#/register"];
+    var notUserForbidden = ["#/profile"];
+    if (
+      (loged == "true" && userForbidden.includes(location.hash)) ||
+      (loged == "false" && notUserForbidden.includes(location.hash))
+    ) {
+      location.hash = "#/";
+    }
+  }
+  function loadProfile() {
+    var user = auth.currentUser;
+    if (location.hash == "#/profile" && user != null) {
+      console.log(user.uid);
+      db.collection("users")
+        .doc(user.uid)
+        .get()
+        .then((x) => {
+          var name = x.data()["Name"];
+          document.getElementById("uName").innerHTML = "hello " + name + " ✌";
+        });
+    }
+  }
+}
+
+{//register, login and logout buttons
+  function register() {
+    var userName = document.getElementById("register_nickname_input").value;
+    var userEmail = document.getElementById("register_email_input").value;
+    var userPass = document.getElementById("register_password_input").value;
+    if (
+      [
+        inputStyle("register", "nickname"),
+        inputStyle("register", "email"),
+        inputStyle("register", "password"),
+        inputStyle("register", "confirm_password"),
+      ].every((x) => x)
+    ) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(userEmail, userPass)
+        .then((log) => {
+          db.collection("users").doc(log.user.uid).set({
+            Name: userName,
+          });
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          window.alert("Error [" + errorCode + "]: " + errorMessage);
+        });
+    } else {
+      window.alert("complete all fields!");
+    }
+  }
+  function login() {
+    var userEmail = document.getElementById("login_email_input").value;
+    var userPass = document.getElementById("login_password_input").value;
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(userEmail, userPass)
+      .then((log) => {})
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        window.alert("Error [" + errorCode + "]: " + errorMessage);
+      });
+  }
+  function logout() {
+    firebase
+      .auth()
+      .signOut()
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+
+        window.alert("Error : " + errorMessage);
+      });
   }
 }
 
@@ -171,8 +194,9 @@ function inputStyle(fieldPurpose, fieldRole) {
 }
 
 function temp() {
-  var hi = location.hash;
+  var hash = location.hash;
   var loged = window.sessionStorage.getItem("log");
-  console.log(hi);
+  console.log(hash);
   console.log(loged);
+  getData("users", "LA");
 }

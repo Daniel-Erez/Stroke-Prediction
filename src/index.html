@@ -9,19 +9,22 @@
   </head>
   <body>
     <app-root></app-root>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAgWGS7DJA48lwG9NtwkjmcM4lEIxf5I1o",
-        authDomain: "strk-prdct.firebaseapp.com",
-        projectId: "strk-prdct",
-        storageBucket: "strk-prdct.appspot.com",
-        messagingSenderId: "137726470492",
-        appId: "1:137726470492:web:5a529ec6eb29ca4163b999",
-        measurementId: "G-LSCMEGK2BT",
-      };
-      firebase.initializeApp(config);
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.4.1/firebase-auth-compat.js"></script>
+<script>
+  var config = {
+    apiKey: "AIzaSyAgWGS7DJA48lwG9NtwkjmcM4lEIxf5I1o",
+    authDomain: "strk-prdct.firebaseapp.com",
+    projectId: "strk-prdct",
+    storageBucket: "strk-prdct.appspot.com",
+    messagingSenderId: "137726470492",
+    appId: "1:137726470492:web:5a529ec6eb29ca4163b999",
+    measurementId: "G-LSCMEGK2BT",
+  };
+   const firebaseApp = firebase.initializeApp(config);
+   const db = firebaseApp.firestore();
+   const auth = firebaseApp.auth();
+</script>
   </body>
 </html>

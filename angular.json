@@ -108,6 +108,16 @@
           "options": {
             "browserTarget": "strkpre:build"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "strkpre:build:production",
+            "firebaseProject": "strk-prdct",
+            "firebaseHostingSite": "strk-prdct"
+          }
         }
       }
     }
