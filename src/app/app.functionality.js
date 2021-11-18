@@ -75,7 +75,7 @@ auth.onAuthStateChanged(function (user) {
   }
   function locationValidate(loged) {
     var userForbidden = ["#/login", "#/register"];
-    var notUserForbidden = ["#/profile"];
+    var notUserForbidden = ["#/profile", "#/test"];
     if (
       (loged == "true" && userForbidden.includes(location.hash)) ||
       (loged == "false" && notUserForbidden.includes(location.hash))
@@ -152,6 +152,20 @@ auth.onAuthStateChanged(function (user) {
 
         window.alert("Error : " + errorMessage);
       });
+  }
+}
+
+{//test yourself - avg_glucose_level, height, weight
+  function glucoseDontKnow() {
+    document.getElementById("avg_glucose_level_input").disabled =
+      !document.getElementById("avg_glucose_level_input").disabled;
+    document.getElementById("avg_glucose_level_units").disabled =
+      !document.getElementById("avg_glucose_level_units").disabled;
+  }
+  function placeholderRange(id,min,max){
+
+    el=document.getElementById(id+"_units");
+    document.getElementById(id+"_input").setAttribute('placeholder', String(parseFloat((el.value*min).toFixed(2)))+'-'+String(parseFloat((el.value*max).toFixed(2))));
   }
 }
 

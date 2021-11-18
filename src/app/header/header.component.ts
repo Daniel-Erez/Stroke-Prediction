@@ -79,6 +79,7 @@ import { Component, OnInit } from "@angular/core";
       <div id="main-menu" class="navbar-menu" style="">
         <div class="navbar-start">
           <a class="navbar-item" routerLink="">Home</a>
+          <a class="navbar-item" routerLink="test">Test Yourself</a>
           <a class="navbar-item" routerLink="profile">Profile</a>
         </div>
 
