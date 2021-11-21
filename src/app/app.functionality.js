@@ -207,6 +207,22 @@ function inputStyle(fieldPurpose, fieldRole) {
   }
 }
 
+function sendTest(){
+  window.alert("this button is under development");
+  /*
+  function validTest(){
+
+  }
+  
+  if(validTest()){
+
+  }else{
+
+  }
+
+  */
+}
+
 function temp() {
   var hash = location.hash;
   var loged = window.sessionStorage.getItem("log");

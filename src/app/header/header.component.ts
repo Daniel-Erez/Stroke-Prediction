@@ -9,7 +9,7 @@ import { Component, OnInit } from "@angular/core";
       <div class="navbar-brand">
         <a class="navbar-item" routerLink="/logo">
           <img
-            src="./assets/img/testing logo.png"
+            src="./assets/img/logo.png"
             width="112"
             height="28"
             alt="logo"
@@ -55,7 +55,7 @@ import { Component, OnInit } from "@angular/core";
       <div class="navbar-brand">
         <a class="navbar-item" routerLink="/logo">
           <img
-            src="./assets/img/testing logo.png"
+            src="./assets/img/logo.png"
             width="112"
             height="28"
             alt="logo"

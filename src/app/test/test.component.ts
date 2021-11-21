@@ -11,6 +11,7 @@ import { Component, OnInit } from "@angular/core";
         flex-wrap: wrap;
         align-content: center;
         align-self: center;
+        justify-content: center;
       }
       .inf .inf-text {
         visibility: hidden;
@@ -39,8 +40,11 @@ import { Component, OnInit } from "@angular/core";
         visibility: visible;
       }
     </style>
-
-    <p class="title">Test yourself:</p>
+    <div class="columns has-text-centered">
+      <div class="column is-one-third">
+        <p class="title">Test yourself:</p>
+      </div>
+    </div>
 
     <div class="field is-horizontal">
       <div class="field-label is-medium">
@@ -49,7 +53,7 @@ import { Component, OnInit } from "@angular/core";
       <div class="field-body">
         <div class="field is-narrow row-center">
           <div class="control is-expanded">
-            <div class="select is-medium">
+            <div class="select is-medium is-expanded">
               <select name="Gender">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -66,7 +70,7 @@ import { Component, OnInit } from "@angular/core";
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
-          <div class="field has-addons">
+          <div class="field has-addons has-addons-centered">
             <p class="control">
               <input
                 id="age_input"
@@ -92,13 +96,13 @@ import { Component, OnInit } from "@angular/core";
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
-          <div class="field has-addons">
+          <div class="field has-addons has-addons-centered">
             <p class="control">
               <input
                 id="height_input"
                 class="input is-medium"
                 type="number"
-                min="50"
+                min="0"
                 max="100000"
                 onchange="validity.valid||(value='');"
                 placeholder="0-250"
@@ -126,13 +130,13 @@ import { Component, OnInit } from "@angular/core";
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
-          <div class="field has-addons">
+          <div class="field has-addons has-addons-centered">
             <p class="control">
               <input
                 id="weight_input"
                 class="input is-medium"
                 type="number"
-                min="50"
+                min="0"
                 max="100000"
                 onchange="validity.valid||(value='');"
                 placeholder="0-500"
@@ -327,13 +331,13 @@ import { Component, OnInit } from "@angular/core";
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
-          <div class="field has-addons">
+          <div class="field has-addons has-addons-centered">
             <p class="control">
               <input
                 id="avg_glucose_level_input"
                 class="input is-medium"
                 type="number"
-                min="50"
+                min="0"
                 max="100000"
                 onchange="validity.valid||(value='');"
                 placeholder="50-300"
@@ -370,6 +374,12 @@ import { Component, OnInit } from "@angular/core";
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="columns has-text-centered">
+      <div class="column is-one-third">
+        <div class="button is-success is-large" onclick="sendTest()">Click to see the results</div>
       </div>
     </div>
     <!------------------------------end html code------------------------------>
