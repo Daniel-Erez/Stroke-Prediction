@@ -339,6 +339,7 @@ import { Component, OnInit } from "@angular/core";
                 type="number"
                 min="0"
                 max="100000"
+                step="0.01"
                 onchange="validity.valid||(value='');"
                 placeholder="50-300"
               />
