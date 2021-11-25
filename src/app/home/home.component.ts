@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
     <button class="delete" aria-label="delete" onclick="window.alert('And how is that supposed to help?')"></button>
   </div>
   <div class="message-body">
-    our home page is under development  </div>
+    our home page is under development</div>
 </article>
 <!------------------------------end html code------------------------------>
   `,
