@@ -248,7 +248,7 @@ import { Component, OnInit } from "@angular/core";
         <div class="field is-narrow row-center">
           <div class="control is-expanded">
             <div class="select is-medium">
-              <select name="SmokingStastus">
+              <select name="SmokingStastus" id="smoke_input">
                 <option value="never smoked">Never smoked</option>
                 <option value="smokes">smokes</option>
                 <option value="formerly smoked">Formerly smoked</option>
