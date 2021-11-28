@@ -237,7 +237,7 @@ function validTest(){
   if (!jobs.includes(job)) return false;
   var residence=document.getElementsByName("ResidenceType");
   if (!residence[0].checked&&!residence[1].checked) return false;
-  var smoke=document.getElementById("job_input").value;
+  var smoke=document.getElementById("smoke_input").value;
   var smokes=["never smoked","smokes","formerly smoked"];
   if (!smokes.includes(smoke)) return false;
   var hypertension=document.getElementsByName("hypertension");
