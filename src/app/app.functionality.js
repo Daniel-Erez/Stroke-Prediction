@@ -164,8 +164,12 @@ auth.onAuthStateChanged(function (user) {
   }
   function placeholderRange(id,min,max){
 
-    el=document.getElementById(id+"_units");
-    document.getElementById(id+"_input").setAttribute('placeholder', String(parseFloat((el.value*min).toFixed(2)))+'-'+String(parseFloat((el.value*max).toFixed(2))));
+    var el=document.getElementById(id+"_units");
+    var inpt=document.getElementById(id+"_input");
+    inpt.setAttribute('placeholder', String(parseFloat((el.value*min).toFixed(2)))+'-'+String(parseFloat((el.value*max).toFixed(2))));
+    inpt.setAttribute('min',String(parseFloat((el.value*min).toFixed(2))));
+    inpt.setAttribute('max',String(parseFloat((el.value*max).toFixed(2))));
+    inpt.value='';
   }
 }
 
@@ -208,19 +212,41 @@ function inputStyle(fieldPurpose, fieldRole) {
 }
 
 function sendTest(){
-  window.alert("this button is under development");
-  /*
-  function validTest(){
-
-  }
-  
   if(validTest()){
-
+    window.alert("valid");
   }else{
-
+    window.alert("not-valid");
   }
 
-  */
+
+}
+function validTest(){
+  var gender=document.getElementById("gender_input").value;
+  var genders=["Male","Female"];
+  if (!genders.includes(gender)) return false;
+  var age=document.getElementById("age_input").value;
+  if (age=='') return false;
+  var height=document.getElementById("height_input").value;
+  if (height=='') return false;
+  var weight=document.getElementById("weight_input").value;
+  if (weight=='') return false;
+  var marry=document.getElementsByName("EverMarried");
+  if (!marry[0].checked&&!marry[1].checked) return false;
+  var job=document.getElementById("job_input").value;
+  var jobs=["Never_worked","Private","Self-employed","Children","Govt_job"];
+  if (!jobs.includes(job)) return false;
+  var residence=document.getElementsByName("ResidenceType");
+  if (!residence[0].checked&&!residence[1].checked) return false;
+  var smoke=document.getElementById("job_input").value;
+  var smokes=["never smoked","smokes","formerly smoked"];
+  if (!smokes.includes(smoke)) return false;
+  var hypertension=document.getElementsByName("hypertension");
+  if (!hypertension[0].checked&&!hypertension[1].checked) return false;
+  var heart_disease=document.getElementsByName("heart_disease");
+  if (!heart_disease[0].checked&&!heart_disease[1].checked) return false;
+  var avg_glc=document.getElementById("avg_glucose_level_input");
+  if(!avg_glc.disabled && avg_glc.value=='') return false;
+  return true;
 }
 
 function temp() {

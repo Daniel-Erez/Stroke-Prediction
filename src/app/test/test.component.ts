@@ -47,14 +47,14 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Gender</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
           <div class="control is-expanded">
             <div class="select is-medium is-expanded">
-              <select name="Gender">
+              <select name="Gender" id="gender_input">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -65,7 +65,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Age</label>
       </div>
       <div class="field-body">
@@ -77,7 +77,8 @@ import { Component, OnInit } from "@angular/core";
                 class="input is-medium"
                 type="number"
                 min="0"
-                max="100000"
+                max="120"
+                step="0.01"
                 onchange="validity.valid||(value='');"
                 placeholder="0-120"
               />
@@ -91,8 +92,8 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
-        <label class="label">Heigh</label>
+      <div class="field-label row-center is-medium">
+        <label class="label">Height</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
@@ -103,7 +104,8 @@ import { Component, OnInit } from "@angular/core";
                 class="input is-medium"
                 type="number"
                 min="0"
-                max="100000"
+                max="250"
+                step="0.01"
                 onchange="validity.valid||(value='');"
                 placeholder="0-250"
               />
@@ -125,7 +127,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Weight</label>
       </div>
       <div class="field-body">
@@ -137,7 +139,8 @@ import { Component, OnInit } from "@angular/core";
                 class="input is-medium"
                 type="number"
                 min="0"
-                max="100000"
+                max="500"
+                step="0.01"
                 onchange="validity.valid||(value='');"
                 placeholder="0-500"
               />
@@ -159,7 +162,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Ever married?</label>
       </div>
       <div class="field-body">
@@ -188,19 +191,19 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Current job type</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
           <div class="control is-expanded">
             <div class="select is-medium">
-              <select name="WorkType">
+              <select name="WorkType" id="job_input">
                 <option value="Never_worked">Unemployed</option>
                 <option value="Private">Private</option>
                 <option value="Self-employed">Self-employed</option>
                 <option value="Children">Children</option>
-                <option value="Govt_job">Govt_job</option>
+                <option value="Govt_job">Government job</option>
               </select>
             </div>
           </div>
@@ -218,7 +221,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Residence type</label>
       </div>
       <div class="field-body">
@@ -238,7 +241,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Smoking status</label>
       </div>
       <div class="field-body">
@@ -266,7 +269,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Hypertension</label>
       </div>
       <div class="field-body">
@@ -297,7 +300,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Heart disease</label>
       </div>
       <div class="field-body">
@@ -326,7 +329,7 @@ import { Component, OnInit } from "@angular/core";
     </div>
 
     <div class="field is-horizontal">
-      <div class="field-label is-medium">
+      <div class="field-label row-center is-medium">
         <label class="label">Average glucose level</label>
       </div>
       <div class="field-body">
@@ -337,8 +340,9 @@ import { Component, OnInit } from "@angular/core";
                 id="avg_glucose_level_input"
                 class="input is-medium"
                 type="number"
-                min="0"
-                max="100000"
+                min="50"
+                max="300"
+                step="0.01"
                 onchange="validity.valid||(value='');"
                 placeholder="50-300"
               />
