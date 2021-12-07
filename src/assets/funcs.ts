@@ -1,3 +1,5 @@
+import { SelectMultipleControlValueAccessor } from "@angular/forms";
+
 export function inputStyle(fieldPurpose: string, fieldRole: "email"|"password"|"nickname"|"confirm_password"): boolean {
   var val = getElementWithID(fieldPurpose + "_" + fieldRole + "_input").value;
   var inpt = document.getElementById(fieldPurpose + "_" + fieldRole + "_input");
@@ -65,4 +67,8 @@ export function temp():void {
   var loged = window.sessionStorage.getItem("log");
   console.log(hash);
   console.log(loged);
+}
+
+export function sleep(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
 }
