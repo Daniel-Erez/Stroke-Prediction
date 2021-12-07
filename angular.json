@@ -55,7 +55,6 @@
               "src/styles.css"
             ],
             "scripts": [
-              "./src/app/app.functionality.js"
             ]
           },
           "configurations": {

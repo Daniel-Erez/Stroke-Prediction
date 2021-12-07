@@ -1,45 +1,17 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { doc, getDoc, updateDoc } from "@firebase/firestore";
+import {
+  getElementWithID,
+  getElementWithName,
+  locationValidate,
+} from "src/assets/funcs";
+import { fire } from "src/environments/environment";
 
 @Component({
   selector: "app-test",
   template: `
     <!------------------------------start html code------------------------------>
-    <style>
-      .row-center {
-        height: 50px;
-        display: flex;
-        flex-wrap: wrap;
-        align-content: center;
-        align-self: center;
-        justify-content: center;
-      }
-      .inf .inf-text {
-        visibility: hidden;
-        width: 200px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        padding: 5px 0;
-        position: absolute;
-        z-index: 1;
-        top: -5px;
-        left: 110%;
-      }
-      .inf .inf-text::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent black transparent transparent;
-      }
-      .inf:hover .inf-text {
-        visibility: visible;
-      }
-    </style>
     <div class="columns has-text-centered">
       <div class="column is-one-third">
         <p class="title">Test yourself:</p>
@@ -114,7 +86,7 @@ import { Component, OnInit } from "@angular/core";
               <span class="select is-medium">
                 <select
                   id="height_units"
-                  onchange="placeholderRange('height',0,250)"
+                  (change)="placeholderRange('height', 0, 250)"
                 >
                   <option value="1">Cm</option>
                   <option value="0.393700787">Inch</option>
@@ -149,7 +121,7 @@ import { Component, OnInit } from "@angular/core";
               <span class="select is-medium">
                 <select
                   id="weight_units"
-                  onchange="placeholderRange('weight',0,500)"
+                  (change)="placeholderRange('weight', 0, 500)"
                 >
                   <option value="1">Kg</option>
                   <option value="2.20462262">Lb</option>
@@ -351,7 +323,7 @@ import { Component, OnInit } from "@angular/core";
               <span class="select is-medium">
                 <select
                   id="avg_glucose_level_units"
-                  onchange="placeholderRange('avg_glucose_level',50,300)"
+                  (change)="placeholderRange('avg_glucose_level', 50, 300)"
                 >
                   <option value="1">mg/dL</option>
                   <option value="0.0555">mmol/L</option>
@@ -372,7 +344,7 @@ import { Component, OnInit } from "@angular/core";
           <div class="field row-center">
             <div class="control">
               <label class="checkbox" style="margin:0;">
-                <input type="checkbox" onclick="glucoseDontKnow()" />
+                <input type="checkbox" (click)="glucoseDontKnow()" />
                 I don't know
               </label>
             </div>
@@ -383,15 +355,200 @@ import { Component, OnInit } from "@angular/core";
 
     <div class="columns has-text-centered">
       <div class="column is-one-third">
-        <div class="button is-success is-large" onclick="sendTest()">Click to see the results</div>
+        <div class="button is-success is-large" (click)="sendTest()">
+          Click to see the results
+        </div>
       </div>
     </div>
     <!------------------------------end html code------------------------------>
   `,
-  styles: [],
+  styles: [
+    `
+      /*------------------------------start css code------------------------------*/
+      .row-center {
+        height: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        align-self: center;
+        justify-content: center;
+      }
+      .inf .inf-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -5px;
+        left: 110%;
+      }
+      .inf .inf-text::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+      }
+      .inf:hover .inf-text {
+        visibility: visible;
+      }
+    /*------------------------------end css code------------------------------*/
+    `,
+  ],
 })
 export class TestComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    locationValidate();
+  }
+
+  placeholderRange(id: String, min: number, max: number): void {
+    var units = Number(
+      (<HTMLInputElement>document.getElementById(id + "_units")).value
+    );
+    var inpt = <HTMLInputElement>document.getElementById(id + "_input");
+    if (inpt != null) {
+      inpt.setAttribute(
+        "placeholder",
+        String(parseFloat((units * min).toFixed(2))) +
+          "-" +
+          String(parseFloat((units * max).toFixed(2)))
+      );
+      inpt.setAttribute("min", String(parseFloat((units * min).toFixed(2))));
+      inpt.setAttribute("max", String(parseFloat((units * max).toFixed(2))));
+      inpt.value = "";
+    }
+  }
+
+  glucoseDontKnow(): void {
+    getElementWithID("avg_glucose_level_input").disabled = !getElementWithID(
+      "avg_glucose_level_input"
+    ).disabled;
+    getElementWithID("avg_glucose_level_units").disabled = !getElementWithID(
+      "avg_glucose_level_units"
+    ).disabled;
+  }
+
+  fillParams(): object {
+    var gender = getElementWithID("gender_input").value;
+    var age = getElementWithID("age_input").value;
+    var units = Number(getElementWithID("height_units").value);
+    var height = Number(getElementWithID("height_units").value) / (units * 100);
+    units = Number(getElementWithID("weight_units").value);
+    var weight = Number(getElementWithID("weight_input").value) / units;
+    var bmi = weight / height ** 2;
+    var marry = getElementWithName("EverMarried");
+    var isMarry: String;
+    if (marry.checked) isMarry = "Yes";
+    else isMarry = "No";
+    var job = getElementWithID("job_input").value;
+    var residence = getElementWithName("ResidenceType");
+    var resType: String;
+    if (residence.checked) resType = "Rural";
+    else resType = "Urban";
+    var smoke = getElementWithID("smoke_input").value;
+    var hypertension = getElementWithName("hypertension");
+    var hyper: number;
+    if (hypertension.checked) hyper = 1;
+    else hyper = 0;
+    var heart_disease = getElementWithName("heart_disease");
+    var hrtDss: number;
+    if (heart_disease.checked) hrtDss = 1;
+    else hrtDss = 0;
+    var avg_glc = getElementWithID("avg_glucose_level_input");
+    var avgGlc: Number | String;
+    if (avg_glc.disabled) avgGlc = "";
+    else {
+      units = Number(getElementWithID("avg_glucose_level_units").value);
+      avgGlc = Number(avg_glc.value) / units;
+    }
+    return {
+      id: "",
+      gender: gender,
+      age: Number(age),
+      bmi: bmi,
+      ever_married: isMarry,
+      work_type: job,
+      Residence_type: resType,
+      smoking_status: smoke,
+      hypertension: hyper,
+      heart_disease: hrtDss,
+      avg_glucose_level: avgGlc,
+    };
+  }
+
+  validTest(): boolean {
+    var gender = getElementWithID("gender_input").value;
+    var genders = ["Male", "Female"];
+    if (!genders.includes(gender)) return false;
+    var age = getElementWithID("age_input").value;
+    if (age == "") return false;
+    var height = getElementWithID("height_input").value;
+    if (height == "") return false;
+    var weight = getElementWithID("weight_input").value;
+    if (weight == "") return false;
+    var marry0 = getElementWithName("EverMarried", 0);
+    var marry1 = getElementWithName("EverMarried", 1);
+    if (!marry0.checked && !marry1.checked) return false;
+    var job = getElementWithID("job_input").value;
+    var jobs = [
+      "Never_worked",
+      "Private",
+      "Self-employed",
+      "Children",
+      "Govt_job",
+    ];
+    if (!jobs.includes(job)) return false;
+    var residence0 = getElementWithName("ResidenceType", 0);
+    var residence1 = getElementWithName("ResidenceType", 1);
+    if (!residence0.checked && !residence1.checked) return false;
+    var smoke = getElementWithID("smoke_input").value;
+    var smokes = ["never smoked", "smokes", "formerly smoked"];
+    if (!smokes.includes(smoke)) return false;
+    var hypertension0 = getElementWithName("hypertension", 0);
+    var hypertension1 = getElementWithName("hypertension", 1);
+    if (!hypertension0.checked && !hypertension1.checked) return false;
+    var heart_disease0 = getElementWithName("heart_disease", 0);
+    var heart_disease1 = getElementWithName("heart_disease", 1);
+    if (!heart_disease0.checked && !heart_disease1.checked) return false;
+    var avg_glc = getElementWithID("avg_glucose_level_input");
+    if (!avg_glc.disabled && avg_glc.value == "") return false;
+    return true;
+  }
+
+  async sendTest(): Promise<void> {
+    if (this.validTest()) {
+      var user = fire.auth.currentUser;
+      if (user != null) {
+        const docRef = doc(fire.db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          var tests = docSnap.data()["tests"];
+          tests[Object.keys(docSnap.data()["tests"]).length + 1] =
+            this.fillParams();
+          console.log(tests);
+
+          await updateDoc(docRef, {
+            tests,
+          });
+
+          this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("something gone wrong :(");
+        }
+      }
+    } else {
+      window.alert("complete all fields!");
+    }
+  }
 }

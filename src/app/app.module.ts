@@ -13,6 +13,10 @@ import { ProfileComponent } from "./profile/profile.component";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { TestComponent } from './test/test.component';
 
+if (window.sessionStorage.getItem("log") == null) {
+  window.sessionStorage.setItem("log", "false");
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,7 @@ import { TestComponent } from './test/test.component';
     ProfileComponent,
     TestComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule,],
   providers: [ {
     provide: LocationStrategy,
     useClass: HashLocationStrategy

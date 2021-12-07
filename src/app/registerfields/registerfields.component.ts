@@ -1,4 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { doc, setDoc } from "@firebase/firestore";
+import { browserSessionPersistence, setPersistence,createUserWithEmailAndPassword } from "firebase/auth";
+import { getElementWithID, inputStyle, locationValidate } from "src/assets/funcs";
+import { fire } from "src/environments/environment";
 
 @Component({
   selector: "app-registerfields",
@@ -16,7 +20,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="text"
           placeholder="Nickname"
-          onchange="inputStyle('register', 'nickname')"
+          (change)="styleChange('register', 'nickname')"
         />
         <span class="icon is-small is-right">
           <i id="register_nickname_icon" class="fas"></i>
@@ -33,7 +37,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="email"
           placeholder="Email"
-          onchange="inputStyle('register', 'email')"
+          (change)="styleChange('register', 'email')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
@@ -53,7 +57,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="password"
           placeholder="Password"
-          onchange="inputStyle('register', 'password')"
+          (change)="styleChange('register', 'password')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
@@ -73,7 +77,7 @@ import { Component, OnInit } from "@angular/core";
           class="input"
           type="password"
           placeholder="Password"
-          onchange="inputStyle('register', 'confirm_password')"
+          (change)="styleChange('register', 'confirm_password')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
@@ -87,7 +91,7 @@ import { Component, OnInit } from "@angular/core";
 
     <div class="field">
       <div class="control">
-        <button class="button is-success" onclick="register()">Register</button>
+        <button class="button is-success" (click)="onSubmit()">Register</button>
       </div>
     </div>
     <!------------------------------end html code------------------------------>
@@ -98,5 +102,46 @@ import { Component, OnInit } from "@angular/core";
 export class RegisterfieldsComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    locationValidate();
+  }
+  onSubmit(){
+    var userName = getElementWithID("register_nickname_input").value;
+    var userEmail = getElementWithID("register_email_input").value;
+    var userPass = getElementWithID("register_password_input").value;
+    if (
+      [
+        inputStyle("register", "nickname"),
+        inputStyle("register", "email"),
+        inputStyle("register", "password"),
+        inputStyle("register", "confirm_password"),
+      ].every((x) => x)
+    ){setPersistence(fire.auth, browserSessionPersistence)
+      .then(() => {
+      createUserWithEmailAndPassword(fire.auth, userEmail, userPass)
+      .then(async (log) => {
+        await setDoc(doc(fire.db, "users", log.user.uid), {
+          Name: userName,
+            tests: {},
+        });
+        window.sessionStorage.setItem("log", "true");
+        locationValidate();
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });})
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+    }else{
+      window.alert("complete all fields!");
+    }
+  }
+  styleChange(fieldPurpose: string, fieldRole: "email"|"password"|"nickname"|"confirm_password"):void{
+    inputStyle(fieldPurpose,fieldRole);
+  }
 }
