@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   template: `
   <!------------------------------start html code------------------------------>
-    <article class="message is-info">
+    <article class="message is-warning">
   <div class="message-header">
     <p>Info</p>
     <button class="delete" aria-label="delete" onclick="window.alert('And how is that supposed to help?')"></button>
