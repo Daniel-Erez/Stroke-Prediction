@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   selector: "app-registerfields",
   template: `
     <!------------------------------start html code------------------------------>
-
     <div class="field">
       <label class="label">Nickname</label>
       <div class="control has-icons-left has-icons-right">
