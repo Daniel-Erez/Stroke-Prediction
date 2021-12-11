@@ -399,7 +399,7 @@ import { fire } from "src/environments/environment";
       .inf:hover .inf-text {
         visibility: visible;
       }
-    /*------------------------------end css code------------------------------*/
+      /*------------------------------end css code------------------------------*/
     `,
   ],
 })
@@ -441,7 +441,7 @@ export class TestComponent implements OnInit {
     var gender = getElementWithID("gender_input").value;
     var age = getElementWithID("age_input").value;
     var units = Number(getElementWithID("height_units").value);
-    var height = Number(getElementWithID("height_units").value) / (units * 100);
+    var height = Number(getElementWithID("height_input").value) / (units * 100);
     units = Number(getElementWithID("weight_units").value);
     var weight = Number(getElementWithID("weight_input").value) / units;
     var bmi = weight / height ** 2;
@@ -485,19 +485,19 @@ export class TestComponent implements OnInit {
     };
   }
 
-  validTest(): boolean {
+  validTest(): number {
     var gender = getElementWithID("gender_input").value;
     var genders = ["Male", "Female"];
-    if (!genders.includes(gender)) return false;
+    if (!genders.includes(gender)) return 0;
     var age = getElementWithID("age_input").value;
-    if (age == "") return false;
+    if (age == "") return 0;
     var height = getElementWithID("height_input").value;
-    if (height == "") return false;
+    if (height == "") return 0;
     var weight = getElementWithID("weight_input").value;
-    if (weight == "") return false;
+    if (weight == "") return 0;
     var marry0 = getElementWithName("EverMarried", 0);
     var marry1 = getElementWithName("EverMarried", 1);
-    if (!marry0.checked && !marry1.checked) return false;
+    if (!marry0.checked && !marry1.checked) return 0;
     var job = getElementWithID("job_input").value;
     var jobs = [
       "Never_worked",
@@ -506,26 +506,32 @@ export class TestComponent implements OnInit {
       "Children",
       "Govt_job",
     ];
-    if (!jobs.includes(job)) return false;
+    if (!jobs.includes(job)) return 0;
     var residence0 = getElementWithName("ResidenceType", 0);
     var residence1 = getElementWithName("ResidenceType", 1);
-    if (!residence0.checked && !residence1.checked) return false;
+    if (!residence0.checked && !residence1.checked) return 0;
     var smoke = getElementWithID("smoke_input").value;
     var smokes = ["never smoked", "smokes", "formerly smoked"];
-    if (!smokes.includes(smoke)) return false;
+    if (!smokes.includes(smoke)) return 0;
     var hypertension0 = getElementWithName("hypertension", 0);
     var hypertension1 = getElementWithName("hypertension", 1);
-    if (!hypertension0.checked && !hypertension1.checked) return false;
+    if (!hypertension0.checked && !hypertension1.checked) return 0;
     var heart_disease0 = getElementWithName("heart_disease", 0);
     var heart_disease1 = getElementWithName("heart_disease", 1);
-    if (!heart_disease0.checked && !heart_disease1.checked) return false;
+    if (!heart_disease0.checked && !heart_disease1.checked) return 0;
     var avg_glc = getElementWithID("avg_glucose_level_input");
-    if (!avg_glc.disabled && avg_glc.value == "") return false;
-    return true;
+    if (!avg_glc.disabled && avg_glc.value == "") return 0;
+    var units = Number(getElementWithID("height_units").value);
+    var numHeight = Number(height) / (units * 100);
+    units = Number(getElementWithID("weight_units").value);
+    var numWeight = Number(weight) / units;
+    var bmi = numWeight / numHeight ** 2;
+    if (bmi > 250) return -1;
+    return 1;
   }
 
   async sendTest(): Promise<void> {
-    if (this.validTest()) {
+    if (this.validTest() == 1) {
       var user = fire.auth.currentUser;
       if (user != null) {
         const docRef = doc(fire.db, "users", user.uid);
@@ -535,8 +541,6 @@ export class TestComponent implements OnInit {
           var tests = docSnap.data()["tests"];
           tests[Object.keys(docSnap.data()["tests"]).length + 1] =
             this.fillParams();
-          console.log(tests);
-
           await updateDoc(docRef, {
             tests,
           });
@@ -547,8 +551,12 @@ export class TestComponent implements OnInit {
           console.log("something gone wrong :(");
         }
       }
-    } else {
+    } else if (this.validTest() == 0) {
       window.alert("complete all fields!");
+    } else if (this.validTest() == -1) {
+      window.alert("please fill ur real parameters");
+    } else {
+      window.alert("something gone wrong :(");
     }
   }
 }

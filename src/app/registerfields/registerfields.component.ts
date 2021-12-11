@@ -3,12 +3,12 @@ import { doc, setDoc } from "@firebase/firestore";
 import { browserSessionPersistence, setPersistence,createUserWithEmailAndPassword } from "firebase/auth";
 import { getElementWithID, inputStyle, locationValidate } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-registerfields",
   template: `
     <!------------------------------start html code------------------------------>
-
     <div class="field">
       <label class="label">Nickname</label>
       <div class="control has-icons-left has-icons-right">
@@ -100,7 +100,7 @@ import { fire } from "src/environments/environment";
   styles: [],
 })
 export class RegisterfieldsComponent implements OnInit {
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -125,7 +125,7 @@ export class RegisterfieldsComponent implements OnInit {
             tests: {},
         });
         window.sessionStorage.setItem("log", "true");
-        locationValidate();
+        this.router.navigateByUrl("/profile");
       })
       .catch((error) => {
         const errorCode = error.code;

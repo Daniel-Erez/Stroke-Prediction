@@ -1,8 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from "@angular/core";
 import { fire } from "src/environments/environment";
 import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
 import { locationValidate,inputStyle, getElementWithID } from "src/assets/funcs";
-import { iif } from "rxjs";
 
 
 @Component({
@@ -60,7 +60,7 @@ import { iif } from "rxjs";
   styles: [],
 })
 export class LoginfieldsComponent implements OnInit {
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -73,7 +73,7 @@ export class LoginfieldsComponent implements OnInit {
       .then(() => {
         signInWithEmailAndPassword(fire.auth, userEmail, userPass).then(() => {
           window.sessionStorage.setItem("log", "true");
-          locationValidate();
+          this.router.navigateByUrl("/profile");
         }).catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;

@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { Component, OnInit } from "@angular/core";
 import { signOut } from "@firebase/auth";
 import { locationValidate, temp } from "src/assets/funcs";
@@ -15,13 +16,8 @@ import { fire } from "src/environments/environment";
         aria-label="main navigation"
       >
         <div class="navbar-brand">
-          <a class="navbar-item" routerLink="/logo">
-            <img
-              src="./assets/img/logo.png"
-              width="112"
-              height="28"
-              alt="logo"
-            />
+          <a class="navbar-item brand-wrapper" routerLink="/logo">
+            <img src="./assets/img/logo2.png" alt="logo" />
           </a>
 
           <a
@@ -85,7 +81,19 @@ import { fire } from "src/environments/environment";
     <br />
     <!------------------------------end html code------------------------------>
   `,
-  styles: [],
+  styles: [
+    `
+      .brand-wrapper {
+        padding: 0;
+        width: 200px;
+      }
+      .brand-wrapper img {
+        width: 100%;
+        height: 90%;
+        max-height:unset;
+      }
+    `,
+  ],
 })
 export class HeaderComponent implements OnInit {
   constructor() {}
@@ -132,7 +140,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  forchck():void{
+  forchck(): void {
     temp();
   }
 }
