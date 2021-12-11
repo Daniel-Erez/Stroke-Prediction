@@ -85,12 +85,15 @@ import { fire } from "src/environments/environment";
     `
       .brand-wrapper {
         padding: 0;
-        width: 200px;
+        width: 220px;
       }
       .brand-wrapper img {
         width: 100%;
         height: 90%;
         max-height:unset;
+      }
+      .navbar-item{
+        font-size:large;
       }
     `,
   ],
