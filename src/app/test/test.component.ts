@@ -275,7 +275,7 @@ import { fire } from "src/environments/environment";
 
     <div class="field is-horizontal">
       <div class="field-label row-center is-medium">
-        <label class="label">Average glucose level</label>
+        <label class="label">Average glucose</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
@@ -371,6 +371,9 @@ import { fire } from "src/environments/environment";
       }
       .inf:hover .inf-text {
         visibility: visible;
+      }
+      .field-label{
+        justify-content: flex-start;
       }
       /*------------------------------end css code------------------------------*/
     `,
