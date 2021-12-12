@@ -161,7 +161,10 @@ export class ProfileComponent implements OnInit {
         //       <button class="delete" aria-label="delete" routerLink=""></button>
         //     </div>
         //     <div class="message-body">
-        //       Close this message to start your first test :)
+        //       Let's start your first test 
+        //       <span class="icon">
+        //         <i class="fas fa-arrow-right"></i>
+        //       </span>
         //     </div>
         //   </article>
         // </div>
@@ -175,17 +178,20 @@ export class ProfileComponent implements OnInit {
         var nodeD = document.createElement("p");
         nodeD.innerHTML = "There are no tests";
         nodeC.appendChild(nodeD);
-        var nodeE = document.createElement("button");
-        nodeE.setAttribute("class", "delete");
-        nodeE.setAttribute("aria-label", "delete");
-        nodeE.addEventListener("click", () => {
-          this.router.navigateByUrl("/test");
-        });
-        nodeB.appendChild(nodeC).appendChild(nodeE);
+        nodeB.appendChild(nodeC);
         var nodeF = document.createElement("div");
         nodeF.setAttribute("class", "message-body");
-        nodeF.innerHTML = "Close this message to start your first test :)";
-        wrapper.appendChild(nodeA).appendChild(nodeB).appendChild(nodeF);
+        nodeF.innerHTML = "Let's start the first test ";
+        var nodeG =document.createElement("span");
+        nodeG.setAttribute("class", "icon");
+        var nodeH = document.createElement("i");
+        nodeH.setAttribute("class", "fas fa-arrow-right");
+        nodeF.addEventListener("click", () => {
+          this.router.navigateByUrl("/test");
+        });
+        nodeF.style.cursor="pointer";
+        nodeG.appendChild(nodeH);
+        wrapper.appendChild(nodeA).appendChild(nodeB).appendChild(nodeF).appendChild(nodeG);
       } else {
         for (let i = 0; i < Object.keys(tests).length; i++) {
           // <div class="column is-one-third">
