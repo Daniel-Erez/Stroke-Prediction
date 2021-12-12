@@ -75,18 +75,18 @@ import { fire } from "src/environments/environment";
                 id="height_input"
                 class="input is-medium"
                 type="number"
-                min="0"
+                min="35"
                 max="250"
                 step="0.01"
                 onchange="validity.valid||(value='');"
-                placeholder="0-250"
+                placeholder="35-250"
               />
             </p>
             <p class="control">
               <span class="select is-medium">
                 <select
                   id="height_units"
-                  (change)="placeholderRange('height', 0, 250)"
+                  (change)="placeholderRange('height', 35, 250)"
                 >
                   <option value="1">Cm</option>
                   <option value="0.393700787">Inch</option>
@@ -110,18 +110,18 @@ import { fire } from "src/environments/environment";
                 id="weight_input"
                 class="input is-medium"
                 type="number"
-                min="0"
+                min="2"
                 max="500"
                 step="0.01"
                 onchange="validity.valid||(value='');"
-                placeholder="0-500"
+                placeholder="2-500"
               />
             </p>
             <p class="control">
               <span class="select is-medium">
                 <select
                   id="weight_units"
-                  (change)="placeholderRange('weight', 0, 500)"
+                  (change)="placeholderRange('weight', 2, 500)"
                 >
                   <option value="1">Kg</option>
                   <option value="2.20462262">Lb</option>
@@ -149,15 +149,6 @@ import { fire } from "src/environments/environment";
               No
             </label>
           </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">Have you ever been married?</span>
-          </div>
         </div>
       </div>
     </div>
@@ -178,15 +169,6 @@ import { fire } from "src/environments/environment";
                 <option value="Govt_job">Government job</option>
               </select>
             </div>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">What is the type of your current job?</span>
           </div>
         </div>
       </div>
@@ -226,15 +208,6 @@ import { fire } from "src/environments/environment";
                 <option value="formerly smoked">Formerly smoked</option>
               </select>
             </div>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">Have you ever smoked?</span>
           </div>
         </div>
       </div>
@@ -302,7 +275,7 @@ import { fire } from "src/environments/environment";
 
     <div class="field is-horizontal">
       <div class="field-label row-center is-medium">
-        <label class="label">Average glucose level</label>
+        <label class="label">Average glucose</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow row-center">
@@ -338,7 +311,7 @@ import { fire } from "src/environments/environment";
                 <i class="fas fa-info"></i>
               </span>
             </a>
-            <span class="inf-text">Have you ever smoked?</span>
+            <span class="inf-text">What is your average glucose level over the past month?</span>
           </div>
           <p class="row-center">&nbsp;&nbsp;</p>
           <div class="field row-center">
@@ -398,6 +371,9 @@ import { fire } from "src/environments/environment";
       }
       .inf:hover .inf-text {
         visibility: visible;
+      }
+      .field-label{
+        justify-content: flex-start;
       }
       /*------------------------------end css code------------------------------*/
     `,
