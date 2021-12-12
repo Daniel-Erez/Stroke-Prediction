@@ -149,15 +149,6 @@ import { fire } from "src/environments/environment";
               No
             </label>
           </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">Have you ever been married?</span>
-          </div>
         </div>
       </div>
     </div>
@@ -178,15 +169,6 @@ import { fire } from "src/environments/environment";
                 <option value="Govt_job">Government job</option>
               </select>
             </div>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">What is the type of your current job?</span>
           </div>
         </div>
       </div>
@@ -226,15 +208,6 @@ import { fire } from "src/environments/environment";
                 <option value="formerly smoked">Formerly smoked</option>
               </select>
             </div>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">Have you ever smoked?</span>
           </div>
         </div>
       </div>
@@ -338,7 +311,7 @@ import { fire } from "src/environments/environment";
                 <i class="fas fa-info"></i>
               </span>
             </a>
-            <span class="inf-text">Have you ever smoked?</span>
+            <span class="inf-text">What is your average glucose level over the past month?</span>
           </div>
           <p class="row-center">&nbsp;&nbsp;</p>
           <div class="field row-center">
