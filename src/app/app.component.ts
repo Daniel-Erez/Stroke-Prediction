@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { sleep } from 'docs/assets/funcs';
+import { sleep } from 'src/assets/funcs';
 import { fire } from 'src/environments/environment';
 
 @Component({
