@@ -75,18 +75,18 @@ import { fire } from "src/environments/environment";
                 id="height_input"
                 class="input is-medium"
                 type="number"
-                min="0"
+                min="35"
                 max="250"
                 step="0.01"
                 onchange="validity.valid||(value='');"
-                placeholder="0-250"
+                placeholder="35-250"
               />
             </p>
             <p class="control">
               <span class="select is-medium">
                 <select
                   id="height_units"
-                  (change)="placeholderRange('height', 0, 250)"
+                  (change)="placeholderRange('height', 35, 250)"
                 >
                   <option value="1">Cm</option>
                   <option value="0.393700787">Inch</option>
@@ -110,18 +110,18 @@ import { fire } from "src/environments/environment";
                 id="weight_input"
                 class="input is-medium"
                 type="number"
-                min="0"
+                min="2"
                 max="500"
                 step="0.01"
                 onchange="validity.valid||(value='');"
-                placeholder="0-500"
+                placeholder="2-500"
               />
             </p>
             <p class="control">
               <span class="select is-medium">
                 <select
                   id="weight_units"
-                  (change)="placeholderRange('weight', 0, 500)"
+                  (change)="placeholderRange('weight', 2, 500)"
                 >
                   <option value="1">Kg</option>
                   <option value="2.20462262">Lb</option>
