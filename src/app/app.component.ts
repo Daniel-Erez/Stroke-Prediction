@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { sleep } from 'docs/assets/funcs';
+import { fire } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -18,5 +20,9 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'strkpre';
+  async ngOnInit(): Promise<void> {
+    if (fire.auth.currentUser == null) await sleep(500);
+    if (fire.auth.currentUser != null) window.sessionStorage.setItem("log","true");
+    else if(window.sessionStorage.getItem("log")== "true"){window.sessionStorage.setItem("log","false");}
+  }
 }

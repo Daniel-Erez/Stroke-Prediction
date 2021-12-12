@@ -1,9 +1,18 @@
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { fire } from "src/environments/environment";
-import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from "firebase/auth";
-import { locationValidate,inputStyle, getElementWithID } from "src/assets/funcs";
-
+import {
+  setPersistence,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+import {
+  locationValidate,
+  inputStyle,
+  getElementWithID,
+} from "src/assets/funcs";
 
 @Component({
   selector: "app-loginfields",
@@ -44,6 +53,16 @@ import { locationValidate,inputStyle, getElementWithID } from "src/assets/funcs"
         </span>
       </p>
     </div>
+
+    <div class="field">
+      <div class="control">
+        <label class="checkbox">
+          <input type="checkbox" id="remember-me" />
+          Remember Me
+        </label>
+      </div>
+    </div>
+
     <div class="field">
       <p class="control">
         <button
@@ -60,7 +79,7 @@ import { locationValidate,inputStyle, getElementWithID } from "src/assets/funcs"
   styles: [],
 })
 export class LoginfieldsComponent implements OnInit {
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -68,26 +87,24 @@ export class LoginfieldsComponent implements OnInit {
   onSubmit() {
     var userEmail = getElementWithID("login_email_input").value;
     var userPass = getElementWithID("login_password_input").value;
-
-    setPersistence(fire.auth, browserSessionPersistence)
+    console.log(getElementWithID("remember-me").checked);
+    if (getElementWithID("remember-me").checked) {
+      setPersistence(fire.auth, browserLocalPersistence);
+    } else {
+      setPersistence(fire.auth, browserSessionPersistence);
+    }
+    signInWithEmailAndPassword(fire.auth, userEmail, userPass)
       .then(() => {
-        signInWithEmailAndPassword(fire.auth, userEmail, userPass).then(() => {
-          window.sessionStorage.setItem("log", "true");
-          this.router.navigateByUrl("/profile");
-        }).catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert("Error [" + errorCode + "]: " + errorMessage);
-          });
+        window.sessionStorage.setItem("log", "true");
+        this.router.navigateByUrl("/profile");
       })
       .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        var errorCode = error.code;
+        var errorMessage = error.message;
         window.alert("Error [" + errorCode + "]: " + errorMessage);
       });
   }
-  styleChange(fieldPurpose: string, fieldRole: "email"|"password"):void{
-    inputStyle(fieldPurpose,fieldRole);
+  styleChange(fieldPurpose: string, fieldRole: "email" | "password"): void {
+    inputStyle(fieldPurpose, fieldRole);
   }
 }
