@@ -12,6 +12,7 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { TestComponent } from './test/test.component';
+import { NoTestsComponent } from './no-tests/no-tests.component';
 
 if (window.sessionStorage.getItem("log") == null) {
   window.sessionStorage.setItem("log", "false");
@@ -28,6 +29,7 @@ if (window.sessionStorage.getItem("log") == null) {
     HomeComponent,
     ProfileComponent,
     TestComponent,
+    NoTestsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule,],
   providers: [ {
