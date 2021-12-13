@@ -49,9 +49,12 @@ import { fire } from "src/environments/environment";
                   min="0"
                   max="120"
                   step="0.01"
-                  onchange="validity.valid||(value='');"
+                  (change)="styleChange('age')"
                   placeholder="0-120"
                 />
+                <span class="icon is-small is-right">
+                  <i id="age_icon" class="fas"></i>
+                </span>
               </p>
               <p class="control">
                 <a class="button is-static is-medium"> years old </a>
@@ -60,6 +63,7 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
+      <p id="age_help" class="help is-danger"></p>
 
       <div class="field is-horizontal">
         <div class="field-label row-center is-medium">
@@ -105,7 +109,7 @@ import { fire } from "src/environments/environment";
             <div class="field has-addons has-addons-centered">
               <p class="control">
                 <input
-                  id="weight_input"
+                  id="test_weight_input"
                   class="input is-medium"
                   type="number"
                   min="2"
@@ -351,7 +355,8 @@ import { fire } from "src/environments/environment";
         display: flex;
         flex-wrap: wrap;
         align-content: center;
-        align-self: center;}
+        align-self: center;
+      }
       .inf .inf-text {
         visibility: hidden;
         width: 200px;
@@ -406,7 +411,7 @@ export class TestComponent implements OnInit {
       inpt.value = "";
     }
   }
-
+ 
   glucoseDontKnow(): void {
     getElementWithID("avg_glucose_level_input").disabled = !getElementWithID(
       "avg_glucose_level_input"
@@ -505,7 +510,7 @@ export class TestComponent implements OnInit {
     units = Number(getElementWithID("weight_units").value);
     var numWeight = Number(weight) / units;
     var bmi = numWeight / numHeight ** 2;
-    if (bmi > 250) return -1;
+    if (bmi > 200) return -1;
     return 1;
   }
 
@@ -538,4 +543,36 @@ export class TestComponent implements OnInit {
       window.alert("something gone wrong :(");
     }
   }
-}
+
+  styleChange(fieldRole: string): void {
+    var val = getElementWithID(fieldRole + "_input").value;
+    var inpt = document.getElementById(fieldRole + "_input");
+    var icon = document.getElementById(fieldRole + "_icon");
+    var help = document.getElementById(fieldRole + "_help");
+    if ((inpt != null && icon != null && help != null)) {
+      if (String(val) == "") {
+        inpt.classList.remove("is-danger");
+        inpt.classList.remove("is-success");
+        icon.classList.remove("fa-exclamation-triangle");
+        icon.classList.remove("fa-check");
+        help.innerHTML = "";
+        inpt.parentElement?.classList.remove("has-icons-right")
+      } else if (Number(val)<100) {
+        inpt.parentElement?.classList.add("has-icons-right")
+        inpt.classList.add("is-success");
+        inpt.classList.remove("is-danger");
+        icon.classList.add("fa-check");
+        icon.classList.remove("fa-exclamation-triangle");
+        help.innerHTML = "";
+      }else{
+      inpt.parentElement?.classList.add("has-icons-right")
+      inpt.classList.remove("is-success");
+      inpt.classList.add("is-danger");
+      icon.classList.remove("fa-check");
+      icon.classList.add("fa-exclamation-triangle");
+      help.innerHTML ="message";
+    }
+  } else {
+    window.alert("something gone wrong :(");
+  }
+}}

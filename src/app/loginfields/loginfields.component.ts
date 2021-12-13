@@ -5,7 +5,6 @@ import {
   setPersistence,
   signInWithEmailAndPassword,
   browserSessionPersistence,
-  indexedDBLocalPersistence,
   browserLocalPersistence,
 } from "firebase/auth";
 import {
@@ -21,29 +20,29 @@ import {
 
     <div class="field">
       <label class="label">Email</label>
-      <div class="control has-icons-left has-icons-right">
+      <div class="control has-icons-left">
         <input
-          id="login_email_input"
+          id="email_input"
           class="input"
           type="email"
           placeholder="Email"
-          (change)="styleChange('login', 'email')"
+          (change)="styleChange('email')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
         <span class="icon is-small is-right">
-          <i id="login_email_icon" class="fas"></i>
+          <i id="email_icon" class="fas"></i>
         </span>
       </div>
-      <p id="login_email_help" class="help is-danger"></p>
+      <p id="email_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
       <label class="label">Password</label>
       <p class="control has-icons-left">
         <input
-          id="login_password_input"
+          id="password_input"
           class="input"
           type="password"
           placeholder="Password"
@@ -85,9 +84,8 @@ export class LoginfieldsComponent implements OnInit {
     locationValidate();
   }
   onSubmit() {
-    var userEmail = getElementWithID("login_email_input").value;
-    var userPass = getElementWithID("login_password_input").value;
-    console.log(getElementWithID("remember-me").checked);
+    var userEmail = getElementWithID("email_input").value;
+    var userPass = getElementWithID("password_input").value;
     if (getElementWithID("remember-me").checked) {
       setPersistence(fire.auth, browserLocalPersistence);
     } else {
@@ -104,7 +102,7 @@ export class LoginfieldsComponent implements OnInit {
         window.alert("Error [" + errorCode + "]: " + errorMessage);
       });
   }
-  styleChange(fieldPurpose: string, fieldRole: "email" | "password"): void {
-    inputStyle(fieldPurpose, fieldRole);
+  styleChange(fieldRole: "email" | "password"): void {
+    inputStyle(fieldRole);
   }
 }
