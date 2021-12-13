@@ -11,82 +11,82 @@ import { Router } from '@angular/router';
     <!------------------------------start html code------------------------------>
     <div class="field">
       <label class="label">Nickname</label>
-      <div class="control has-icons-left has-icons-right">
+      <div class="control has-icons-left">
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
         <input
-          id="register_nickname_input"
+          id="nickname_input"
           class="input"
           type="text"
           placeholder="Nickname"
-          (change)="styleChange('register', 'nickname')"
+          (change)="styleChange('nickname')"
         />
         <span class="icon is-small is-right">
-          <i id="register_nickname_icon" class="fas"></i>
+          <i id="nickname_icon" class="fas"></i>
         </span>
       </div>
-      <p id="register_nickname_help" class="help is-danger"></p>
+      <p id="nickname_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
       <label class="label">Email</label>
-      <div class="control has-icons-left has-icons-right">
+      <div class="control has-icons-left">
         <input
-          id="register_email_input"
+          id="email_input"
           class="input"
           type="email"
           placeholder="Email"
-          (change)="styleChange('register', 'email')"
+          (change)="styleChange('email')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
         <span class="icon is-small is-right">
-          <i id="register_email_icon" class="fas"></i>
+          <i id="email_icon" class="fas"></i>
         </span>
       </div>
-      <p id="register_email_help" class="help is-danger"></p>
+      <p id="email_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
       <label class="label">Password</label>
-      <div class="control has-icons-left has-icons-right">
+      <div class="control has-icons-left">
         <input
-          id="register_password_input"
+          id="password_input"
           class="input"
           type="password"
           placeholder="Password"
-          (change)="styleChange('register', 'password')"
+          (change)="styleChange('password')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
         <span class="icon is-small is-right">
-          <i id="register_password_icon" class="fas"></i>
+          <i id="password_icon" class="fas"></i>
         </span>
       </div>
-      <p id="register_password_help" class="help is-danger"></p>
+      <p id="password_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
       <label class="label">Confirm Password</label>
-      <div class="control has-icons-left has-icons-right">
+      <div class="control has-icons-left">
         <input
-          id="register_confirm_password_input"
+          id="confirm_password_input"
           class="input"
           type="password"
           placeholder="Password"
-          (change)="styleChange('register', 'confirm_password')"
+          (change)="styleChange('confirm_password')"
         />
         <span class="icon is-small is-left">
           <i class="fas fa-lock"></i>
         </span>
         <span class="icon is-small is-right">
-          <i id="register_confirm_password_icon" class="fas"></i>
+          <i id="confirm_password_icon" class="fas"></i>
         </span>
       </div>
-      <p id="register_confirm_password_help" class="help is-danger"></p>
+      <p id="confirm_password_help" class="help is-danger"></p>
     </div>
 
     <div class="field">
@@ -111,10 +111,10 @@ export class RegisterfieldsComponent implements OnInit {
     var userPass = getElementWithID("register_password_input").value;
     if (
       [
-        inputStyle("register", "nickname"),
-        inputStyle("register", "email"),
-        inputStyle("register", "password"),
-        inputStyle("register", "confirm_password"),
+        inputStyle("nickname"),
+        inputStyle("email"),
+        inputStyle("password"),
+        inputStyle("confirm_password"),
       ].every((x) => x)
     ){setPersistence(fire.auth, browserSessionPersistence)
       .then(() => {
@@ -141,7 +141,7 @@ export class RegisterfieldsComponent implements OnInit {
       window.alert("complete all fields!");
     }
   }
-  styleChange(fieldPurpose: string, fieldRole: "email"|"password"|"nickname"|"confirm_password"):void{
-    inputStyle(fieldPurpose,fieldRole);
+  styleChange(fieldRole: "email"|"password"|"nickname"|"confirm_password"):void{
+    inputStyle(fieldRole);
   }
 }
