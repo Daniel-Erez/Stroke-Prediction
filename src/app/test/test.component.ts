@@ -12,325 +12,322 @@ import { fire } from "src/environments/environment";
   selector: "app-test",
   template: `
     <!------------------------------start html code------------------------------>
-    <div class="columns has-text-centered">
-      <div class="column is-one-third">
-        <p class="title">Test yourself:</p>
-      </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Gender</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control is-expanded">
-            <div class="select is-medium is-expanded">
-              <select name="Gender" id="gender_input">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
+    <div class="wrapper">
+      <p class="title is-underlined">Test yourself:</p>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Gender</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control is-expanded">
+              <div class="select is-medium is-expanded">
+                <select name="Gender" id="gender_input">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Age</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="field has-addons has-addons-centered">
-            <p class="control">
-              <input
-                id="age_input"
-                class="input is-medium"
-                type="number"
-                min="0"
-                max="120"
-                step="0.01"
-                onchange="validity.valid||(value='');"
-                placeholder="0-120"
-              />
-            </p>
-            <p class="control">
-              <a class="button is-static is-medium"> years old </a>
-            </p>
-          </div>
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Age</label>
         </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Height</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="field has-addons has-addons-centered">
-            <p class="control">
-              <input
-                id="height_input"
-                class="input is-medium"
-                type="number"
-                min="35"
-                max="250"
-                step="0.01"
-                onchange="validity.valid||(value='');"
-                placeholder="35-250"
-              />
-            </p>
-            <p class="control">
-              <span class="select is-medium">
-                <select
-                  id="height_units"
-                  (change)="placeholderRange('height', 35, 250)"
-                >
-                  <option value="1">Cm</option>
-                  <option value="0.393700787">Inch</option>
-                </select>
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Weight</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="field has-addons has-addons-centered">
-            <p class="control">
-              <input
-                id="weight_input"
-                class="input is-medium"
-                type="number"
-                min="2"
-                max="500"
-                step="0.01"
-                onchange="validity.valid||(value='');"
-                placeholder="2-500"
-              />
-            </p>
-            <p class="control">
-              <span class="select is-medium">
-                <select
-                  id="weight_units"
-                  (change)="placeholderRange('weight', 2, 500)"
-                >
-                  <option value="1">Kg</option>
-                  <option value="2.20462262">Lb</option>
-                </select>
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Ever married?</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control row-center">
-            <label class="radio content is-medium" style="margin:0;">
-              <input type="radio" name="EverMarried" />
-              Yes
-            </label>
-            <label class="radio content is-medium">
-              <input type="radio" name="EverMarried" />
-              No
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Current job type</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control is-expanded">
-            <div class="select is-medium">
-              <select name="WorkType" id="job_input">
-                <option value="Never_worked">Unemployed</option>
-                <option value="Private">Private</option>
-                <option value="Self-employed">Self-employed</option>
-                <option value="Children">Children</option>
-                <option value="Govt_job">Government job</option>
-              </select>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="field has-addons has-addons-centered">
+              <p class="control">
+                <input
+                  id="age_input"
+                  class="input is-medium"
+                  type="number"
+                  min="0"
+                  max="120"
+                  step="0.01"
+                  onchange="validity.valid||(value='');"
+                  placeholder="0-120"
+                />
+              </p>
+              <p class="control">
+                <a class="button is-static is-medium"> years old </a>
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Residence type</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control">
-            <label class="radio content is-medium" style="margin:0;">
-              <input type="radio" name="ResidenceType" />
-              Rural
-            </label>
-            <label class="radio content is-medium">
-              <input type="radio" name="ResidenceType" />
-              Urban
-            </label>
-          </div>
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Height</label>
         </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Smoking status</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control is-expanded">
-            <div class="select is-medium">
-              <select name="SmokingStastus" id="smoke_input">
-                <option value="never smoked">Never smoked</option>
-                <option value="smokes">smokes</option>
-                <option value="formerly smoked">Formerly smoked</option>
-              </select>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="field has-addons has-addons-centered">
+              <p class="control">
+                <input
+                  id="height_input"
+                  class="input is-medium"
+                  type="number"
+                  min="35"
+                  max="250"
+                  step="0.01"
+                  onchange="validity.valid||(value='');"
+                  placeholder="35-250"
+                />
+              </p>
+              <p class="control">
+                <span class="select is-medium">
+                  <select
+                    id="height_units"
+                    (change)="placeholderRange('height', 35, 250)"
+                  >
+                    <option value="1">Cm</option>
+                    <option value="0.393700787">Inch</option>
+                  </select>
+                </span>
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Hypertension</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control row-center">
-            <label class="radio content is-medium" style="margin:0;">
-              <input type="radio" name="hypertension" />
-              Yes
-            </label>
-            <label class="radio content is-medium">
-              <input type="radio" name="hypertension" />
-              No
-            </label>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text"
-              >Do you currently have high blood pressure?</span
-            >
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Weight</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="field has-addons has-addons-centered">
+              <p class="control">
+                <input
+                  id="weight_input"
+                  class="input is-medium"
+                  type="number"
+                  min="2"
+                  max="500"
+                  step="0.01"
+                  onchange="validity.valid||(value='');"
+                  placeholder="2-500"
+                />
+              </p>
+              <p class="control">
+                <span class="select is-medium">
+                  <select
+                    id="weight_units"
+                    (change)="placeholderRange('weight', 2, 500)"
+                  >
+                    <option value="1">Kg</option>
+                    <option value="2.20462262">Lb</option>
+                  </select>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Heart disease</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="control row-center">
-            <label class="radio content is-medium" style="margin:0;">
-              <input type="radio" name="heart_disease" />
-              Yes
-            </label>
-            <label class="radio content is-medium">
-              <input type="radio" name="heart_disease" />
-              No
-            </label>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">Do you currently have heart disease?</span>
-          </div>
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Ever married?</label>
         </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label row-center is-medium">
-        <label class="label">Average glucose</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow row-center">
-          <div class="field has-addons has-addons-centered">
-            <p class="control">
-              <input
-                id="avg_glucose_level_input"
-                class="input is-medium"
-                type="number"
-                min="50"
-                max="300"
-                step="0.01"
-                onchange="validity.valid||(value='');"
-                placeholder="50-300"
-              />
-            </p>
-            <p class="control">
-              <span class="select is-medium">
-                <select
-                  id="avg_glucose_level_units"
-                  (change)="placeholderRange('avg_glucose_level', 50, 300)"
-                >
-                  <option value="1">mg/dL</option>
-                  <option value="0.0555">mmol/L</option>
-                </select>
-              </span>
-            </p>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="control row-center inf">
-            <a class="button is-info is-small is-rounded">
-              <span class="icon">
-                <i class="fas fa-info"></i>
-              </span>
-            </a>
-            <span class="inf-text">What is your average glucose level over the past month?</span>
-          </div>
-          <p class="row-center">&nbsp;&nbsp;</p>
-          <div class="field row-center">
-            <div class="control">
-              <label class="checkbox" style="margin:0;">
-                <input type="checkbox" (click)="glucoseDontKnow()" />
-                I don't know
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control row-center">
+              <label class="radio content is-medium" style="margin:0;">
+                <input type="radio" name="EverMarried" />
+                Yes
+              </label>
+              <label class="radio content is-medium">
+                <input type="radio" name="EverMarried" />
+                No
               </label>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="columns has-text-centered">
-      <div class="column is-one-third">
-        <div class="button is-success is-large" (click)="sendTest()">
-          Click to see the results
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Current job type</label>
         </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control is-expanded">
+              <div class="select is-medium">
+                <select name="WorkType" id="job_input">
+                  <option value="Never_worked">Unemployed</option>
+                  <option value="Private">Private</option>
+                  <option value="Self-employed">Self-employed</option>
+                  <option value="Children">Children</option>
+                  <option value="Govt_job">Government job</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Residence type</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control">
+              <label class="radio content is-medium" style="margin:0;">
+                <input type="radio" name="ResidenceType" />
+                Rural
+              </label>
+              <label class="radio content is-medium">
+                <input type="radio" name="ResidenceType" />
+                Urban
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Smoking status</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control is-expanded">
+              <div class="select is-medium">
+                <select name="SmokingStastus" id="smoke_input">
+                  <option value="never smoked">Never smoked</option>
+                  <option value="smokes">smokes</option>
+                  <option value="formerly smoked">Formerly smoked</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Hypertension</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control row-center">
+              <label class="radio content is-medium" style="margin:0;">
+                <input type="radio" name="hypertension" />
+                Yes
+              </label>
+              <label class="radio content is-medium">
+                <input type="radio" name="hypertension" />
+                No
+              </label>
+            </div>
+            <p class="row-center">&nbsp;&nbsp;</p>
+            <div class="control row-center inf">
+              <a class="button is-info is-small is-rounded">
+                <span class="icon">
+                  <i class="fas fa-info"></i>
+                </span>
+              </a>
+              <span class="inf-text"
+                >Do you currently have high blood pressure?</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Heart disease</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="control row-center">
+              <label class="radio content is-medium" style="margin:0;">
+                <input type="radio" name="heart_disease" />
+                Yes
+              </label>
+              <label class="radio content is-medium">
+                <input type="radio" name="heart_disease" />
+                No
+              </label>
+            </div>
+            <p class="row-center">&nbsp;&nbsp;</p>
+            <div class="control row-center inf">
+              <a class="button is-info is-small is-rounded">
+                <span class="icon">
+                  <i class="fas fa-info"></i>
+                </span>
+              </a>
+              <span class="inf-text">Do you currently have heart disease?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field is-horizontal">
+        <div class="field-label row-center is-medium">
+          <label class="label">Average glucose</label>
+        </div>
+        <div class="field-body">
+          <div class="field is-narrow row-center">
+            <div class="field has-addons has-addons-centered">
+              <p class="control">
+                <input
+                  id="avg_glucose_level_input"
+                  class="input is-medium"
+                  type="number"
+                  min="50"
+                  max="300"
+                  step="0.01"
+                  onchange="validity.valid||(value='');"
+                  placeholder="50-300"
+                />
+              </p>
+              <p class="control">
+                <span class="select is-medium">
+                  <select
+                    id="avg_glucose_level_units"
+                    (change)="placeholderRange('avg_glucose_level', 50, 300)"
+                  >
+                    <option value="1">mg/dL</option>
+                    <option value="0.0555">mmol/L</option>
+                  </select>
+                </span>
+              </p>
+            </div>
+            <p class="row-center">&nbsp;&nbsp;</p>
+            <div class="control row-center inf">
+              <a class="button is-info is-small is-rounded">
+                <span class="icon">
+                  <i class="fas fa-info"></i>
+                </span>
+              </a>
+              <span class="inf-text"
+                >What is your average glucose level over the past month?</span
+              >
+            </div>
+            <p class="row-center">&nbsp;&nbsp;</p>
+            <div class="field row-center">
+              <div class="control">
+                <label class="checkbox" style="margin:0;">
+                  <input type="checkbox" (click)="glucoseDontKnow()" />
+                  I don't know
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button is-success is-large" (click)="sendTest()">
+        Click to see the results
       </div>
     </div>
     <!------------------------------end html code------------------------------>
@@ -338,14 +335,23 @@ import { fire } from "src/environments/environment";
   styles: [
     `
       /*------------------------------start css code------------------------------*/
+      .wrapper {
+        padding-left: calc(50% - 200px);
+      }
+      .is-horizontal div {
+        flex-basis: unset;
+        flex-grow: unset;
+      }
+      .field-label {
+        justify-content: flex-start;
+        width: 200px;
+      }
       .row-center {
         height: 50px;
         display: flex;
         flex-wrap: wrap;
         align-content: center;
-        align-self: center;
-        justify-content: center;
-      }
+        align-self: center;}
       .inf .inf-text {
         visibility: hidden;
         width: 200px;
@@ -371,9 +377,6 @@ import { fire } from "src/environments/environment";
       }
       .inf:hover .inf-text {
         visibility: visible;
-      }
-      .field-label{
-        justify-content: flex-start;
       }
       /*------------------------------end css code------------------------------*/
     `,
