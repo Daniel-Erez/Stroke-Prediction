@@ -1,10 +1,12 @@
-import { SelectMultipleControlValueAccessor } from "@angular/forms";
-
-export function inputStyle(fieldPurpose: string, fieldRole: "email"|"password"|"nickname"|"confirm_password"): boolean {
-  var val = getElementWithID(fieldPurpose + "_" + fieldRole + "_input").value;
-  var inpt = document.getElementById(fieldPurpose + "_" + fieldRole + "_input");
-  var icon = document.getElementById(fieldPurpose + "_" + fieldRole + "_icon");
-  var help = document.getElementById(fieldPurpose + "_" + fieldRole + "_help");
+export function inputStyle(fieldRole: "email"|"password"|"nickname"|"confirm_password"): boolean {
+  var inpt = getElementWithID(fieldRole + "_input");
+  var icon = document.getElementById(fieldRole + "_icon");
+  var help = document.getElementById(fieldRole + "_help");
+  let conPas=null;
+  if(getElementWithID("password_input")==null){conPas=""}
+  else{conPas= new RegExp(
+    getElementWithID("password_input")
+    .value)}
   var roles = {
     email: { message: "must be a valid email", pattern: /\S+@\S+\.\S+/ },
     password: {
@@ -14,21 +16,28 @@ export function inputStyle(fieldPurpose: string, fieldRole: "email"|"password"|"
     nickname: { message: "must be a non-spaced phrase", pattern: /^\S+/ },
     confirm_password: {
       message: "must match the password above",
-      pattern: new RegExp(
-        getElementWithID(fieldPurpose + "_password_input")
-        .value
-      ),
-    },
+      pattern: conPas
+    }
   };
   if ((inpt != null && icon != null && help != null)) {
-    if (String(val.match(roles[fieldRole]["pattern"])) == val) {
+     if (String(inpt.value) == "") {
+      inpt.classList.remove("is-danger");
+      inpt.classList.remove("is-success");
+      icon.classList.remove("fa-exclamation-triangle");
+      icon.classList.remove("fa-check");
+      help.innerHTML = "";
+      inpt.parentElement?.classList.remove("has-icons-right")
+      return false;
+    }else if (String(inpt.value.match(roles[fieldRole]["pattern"])) == inpt.value) {
+      inpt.parentElement?.classList.add("has-icons-right")
       inpt.classList.add("is-success");
       inpt.classList.remove("is-danger");
       icon.classList.add("fa-check");
       icon.classList.remove("fa-exclamation-triangle");
       help.innerHTML = "";
       return true;
-    } else {
+    }else{
+      inpt.parentElement?.classList.add("has-icons-right")
       inpt.classList.remove("is-success");
       inpt.classList.add("is-danger");
       icon.classList.remove("fa-check");
