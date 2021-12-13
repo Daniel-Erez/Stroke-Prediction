@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
       <div class="title"><span id="uName"></span></div>
 
       <div id="results-wrapper" role="results" class="columns is-multiline">
+      <app-no-tests class="column" id="noTests"></app-no-tests>
         <!-- example of an open result
         <div class="column is-one-third">
           <div id="0" class="box is-clickable has-background-info-light" (click)="openTest($event)">
@@ -26,7 +27,13 @@ import { Router } from "@angular/router";
     </div>
     <!------------------------------end html code------------------------------>
   `,
-  styles: [``],
+  styles: [`
+  /*------------------------------start css code------------------------------*/
+  #noTests{
+    display:none;
+  }
+  /*------------------------------end css code------------------------------*/
+  `],
 })
 export class ProfileComponent implements OnInit {
   constructor(private router: Router) {}
@@ -158,52 +165,12 @@ export class ProfileComponent implements OnInit {
     if (docSnap.exists()) {
       var tests = docSnap.data()["tests"];
       if (Object.keys(tests).length == 0) {
-        // <div class="column">
-        //   <article class="message is-info">
-        //     <div class="message-header">
-        //       <p>There are no tests</p>
-        //     </div>
-        //     <div class="message-body">
-        //       Let's start your first test
-        //       <span class="icon">
-        //         <i class="fas fa-arrow-right"></i>
-        //       </span>
-        //     </div>
-        //   </article>
-        // </div>
-
-        var nodeA = document.createElement("div");
-        nodeA.setAttribute("class", "column");
-        var nodeB = document.createElement("article");
-        nodeB.setAttribute("class", "message is-info");
-        var nodeC = document.createElement("div");
-        nodeC.setAttribute("class", "message-header");
-        var nodeD = document.createElement("p");
-        nodeD.innerHTML = "There are no tests";
-        nodeC.appendChild(nodeD);
-        nodeB.appendChild(nodeC);
-        var nodeF = document.createElement("div");
-        nodeF.setAttribute("class", "message-body");
-        nodeF.innerHTML = "Let's start the first test";
-        nodeF.addEventListener("click", () => {
-          this.router.navigateByUrl("/test");
-        });
-        var nodeG = document.createElement("span");
-        nodeG.setAttribute("class", "icon");
-        var nodeH = document.createElement("i");
-        nodeH.setAttribute("class", "fas fa-arrow-right");
-        nodeF.style.cursor = "pointer";
-        nodeG.appendChild(nodeH);
-        wrapper
-          .appendChild(nodeA)
-          .appendChild(nodeB)
-          .appendChild(nodeF)
-          .appendChild(nodeG);
+        getElementWithID("noTests").style.display="block";
       } else {
         for (let i = 0; i < Object.keys(tests).length; i++) {
           // <div class="column is-one-third">
-          //   <div class="box is-clickable has-background-info-light" id="i">
-          //     <span class="is-size-3 has-text-weight-semibold" style="pointer-events: none;">Test 1</span>
+          //   <div class="box is-clickable has-background-info-light" id="key[i]" (click)="openTest($event)">
+          //     <span class="is-size-3 has-text-weight-semibold" style="pointer-events: none;">Test key[i]</span>
           //   </div>
           // </div>
 

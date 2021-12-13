@@ -10,8 +10,7 @@ import { Component, OnInit } from '@angular/core';
     <div *ngIf="userLogin()">hello<strong>hello<span (click)="oneMore($event)">!</span></strong></div>
 <!------------------------------end html code------------------------------>
   `,
-  styles: [
-  ]
+  styles: []
 })
 export class NoneComponent implements OnInit {
 

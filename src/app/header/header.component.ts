@@ -83,6 +83,7 @@ import { fire } from "src/environments/environment";
   `,
   styles: [
     `
+  /*------------------------------start css code------------------------------*/
       .brand-wrapper {
         padding: 0;
         width: 220px;
@@ -95,7 +96,8 @@ import { fire } from "src/environments/environment";
       .navbar-item{
         font-size:large;
       }
-    `,
+  /*------------------------------end css code------------------------------*/
+  `,
   ],
 })
 export class HeaderComponent implements OnInit {
