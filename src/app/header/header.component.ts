@@ -1,7 +1,7 @@
 import { AppComponent } from './../app.component';
 import { Component, OnInit } from "@angular/core";
 import { signOut } from "@firebase/auth";
-import { locationValidate, temp } from "src/assets/funcs";
+import { locationValidate, sleep, temp } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
 
 @Component({

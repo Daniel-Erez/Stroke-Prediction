@@ -12,6 +12,7 @@ import { Router } from "@angular/router";
       <progress id="loader" class="progress is-info" max="100"></progress>
 
       <div class="title"><span id="uName"></span></div>
+
       <div id="results-wrapper" role="results" class="columns is-multiline">
         <!-- example of an open result
         <div class="column is-one-third">
@@ -58,10 +59,13 @@ export class ProfileComponent implements OnInit {
   }
 
   async openTest(event: any): Promise<void> {
-    let elementId: string = (event.target as Element).id;
+    let element=event.target as Element;
+    let elementId: string = element.id;
     var openDiv = getElementWithID("tOpen");
     if (openDiv != null) {
+      let close=openDiv.parentElement==element;
       openDiv.remove();
+      if(close) return;
     }
     var divToCreate = document.createElement("div");
     divToCreate.setAttribute("id", "tOpen");
@@ -158,10 +162,9 @@ export class ProfileComponent implements OnInit {
         //   <article class="message is-info">
         //     <div class="message-header">
         //       <p>There are no tests</p>
-        //       <button class="delete" aria-label="delete" routerLink=""></button>
         //     </div>
         //     <div class="message-body">
-        //       Let's start your first test 
+        //       Let's start your first test
         //       <span class="icon">
         //         <i class="fas fa-arrow-right"></i>
         //       </span>
@@ -181,17 +184,21 @@ export class ProfileComponent implements OnInit {
         nodeB.appendChild(nodeC);
         var nodeF = document.createElement("div");
         nodeF.setAttribute("class", "message-body");
-        nodeF.innerHTML = "Let's start the first test ";
-        var nodeG =document.createElement("span");
-        nodeG.setAttribute("class", "icon");
-        var nodeH = document.createElement("i");
-        nodeH.setAttribute("class", "fas fa-arrow-right");
+        nodeF.innerHTML = "Let's start the first test";
         nodeF.addEventListener("click", () => {
           this.router.navigateByUrl("/test");
         });
-        nodeF.style.cursor="pointer";
+        var nodeG = document.createElement("span");
+        nodeG.setAttribute("class", "icon");
+        var nodeH = document.createElement("i");
+        nodeH.setAttribute("class", "fas fa-arrow-right");
+        nodeF.style.cursor = "pointer";
         nodeG.appendChild(nodeH);
-        wrapper.appendChild(nodeA).appendChild(nodeB).appendChild(nodeF).appendChild(nodeG);
+        wrapper
+          .appendChild(nodeA)
+          .appendChild(nodeB)
+          .appendChild(nodeF)
+          .appendChild(nodeG);
       } else {
         for (let i = 0; i < Object.keys(tests).length; i++) {
           // <div class="column is-one-third">
