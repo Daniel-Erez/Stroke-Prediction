@@ -21,7 +21,7 @@ import { fire } from 'src/environments/environment';
 })
 export class AppComponent {
   async ngOnInit(): Promise<void> {
-    if (fire.auth.currentUser == null) await sleep(500);
+    if (fire.auth.currentUser == null) await sleep(1000);
     if (fire.auth.currentUser != null) window.sessionStorage.setItem("log","true");
     else if(window.sessionStorage.getItem("log")== "true"){window.sessionStorage.setItem("log","false");}
   }

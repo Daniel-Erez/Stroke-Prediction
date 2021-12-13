@@ -1,8 +1,5 @@
-
-
 export function inputStyle(fieldRole: "email"|"password"|"nickname"|"confirm_password"): boolean {
-  var val = getElementWithID(fieldRole + "_input").value;
-  var inpt = document.getElementById(fieldRole + "_input");
+  var inpt = getElementWithID(fieldRole + "_input");
   var icon = document.getElementById(fieldRole + "_icon");
   var help = document.getElementById(fieldRole + "_help");
   let conPas=null;
@@ -23,7 +20,7 @@ export function inputStyle(fieldRole: "email"|"password"|"nickname"|"confirm_pas
     }
   };
   if ((inpt != null && icon != null && help != null)) {
-     if (String(val) == "") {
+     if (String(inpt.value) == "") {
       inpt.classList.remove("is-danger");
       inpt.classList.remove("is-success");
       icon.classList.remove("fa-exclamation-triangle");
@@ -31,7 +28,7 @@ export function inputStyle(fieldRole: "email"|"password"|"nickname"|"confirm_pas
       help.innerHTML = "";
       inpt.parentElement?.classList.remove("has-icons-right")
       return false;
-    }else if (String(val.match(roles[fieldRole]["pattern"])) == val) {
+    }else if (String(inpt.value.match(roles[fieldRole]["pattern"])) == inpt.value) {
       inpt.parentElement?.classList.add("has-icons-right")
       inpt.classList.add("is-success");
       inpt.classList.remove("is-danger");

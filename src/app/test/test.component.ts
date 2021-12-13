@@ -48,13 +48,9 @@ import { fire } from "src/environments/environment";
                   type="number"
                   min="0"
                   max="120"
-                  step="0.01"
                   (change)="styleChange('age')"
                   placeholder="0-120"
                 />
-                <span class="icon is-small is-right">
-                  <i id="age_icon" class="fas"></i>
-                </span>
               </p>
               <p class="control">
                 <a class="button is-static is-medium"> years old </a>
@@ -63,7 +59,7 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
-      <p id="age_help" class="help is-danger"></p>
+      <p id="age_help" class="help is-danger">come on...</p>
 
       <div class="field is-horizontal">
         <div class="field-label row-center is-medium">
@@ -79,8 +75,7 @@ import { fire } from "src/environments/environment";
                   type="number"
                   min="35"
                   max="250"
-                  step="0.01"
-                  onchange="validity.valid||(value='');"
+                  (change)="styleChange('height')"
                   placeholder="35-250"
                 />
               </p>
@@ -99,6 +94,7 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
+      <p id="height_help" class="help is-danger">Don't try me...</p>
 
       <div class="field is-horizontal">
         <div class="field-label row-center is-medium">
@@ -109,13 +105,12 @@ import { fire } from "src/environments/environment";
             <div class="field has-addons has-addons-centered">
               <p class="control">
                 <input
-                  id="test_weight_input"
+                  id="weight_input"
                   class="input is-medium"
                   type="number"
                   min="2"
                   max="500"
-                  step="0.01"
-                  onchange="validity.valid||(value='');"
+                  (change)="styleChange('weight')"
                   placeholder="2-500"
                 />
               </p>
@@ -134,6 +129,7 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
+      <p id="weight_help" class="help is-danger">Stop it...</p>
 
       <div class="field is-horizontal">
         <div class="field-label row-center is-medium">
@@ -290,7 +286,7 @@ import { fire } from "src/environments/environment";
                   min="50"
                   max="300"
                   step="0.01"
-                  onchange="validity.valid||(value='');"
+                  (change)="styleChange('avg_glucose_level')"
                   placeholder="50-300"
                 />
               </p>
@@ -329,6 +325,7 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
+      <p id="avg_glucose_level_help" class="help is-danger">I have no words...</p>
 
       <div class="button is-success is-large" (click)="sendTest()">
         Click to see the results
@@ -339,6 +336,9 @@ import { fire } from "src/environments/environment";
   styles: [
     `
       /*------------------------------start css code------------------------------*/
+      .help{
+        display:none;
+      }
       .wrapper {
         padding-left: calc(50% - 200px);
       }
@@ -411,8 +411,11 @@ export class TestComponent implements OnInit {
       inpt.value = "";
     }
   }
- 
+
   glucoseDontKnow(): void {
+    var inpt=getElementWithID("avg_glucose_level_input")
+    inpt.value="";
+    this.styleChange("avg_glucose_level")
     getElementWithID("avg_glucose_level_input").disabled = !getElementWithID(
       "avg_glucose_level_input"
     ).disabled;
@@ -544,35 +547,25 @@ export class TestComponent implements OnInit {
     }
   }
 
-  styleChange(fieldRole: string): void {
-    var val = getElementWithID(fieldRole + "_input").value;
-    var inpt = document.getElementById(fieldRole + "_input");
-    var icon = document.getElementById(fieldRole + "_icon");
-    var help = document.getElementById(fieldRole + "_help");
-    if ((inpt != null && icon != null && help != null)) {
-      if (String(val) == "") {
+  styleChange(fieldRole: string): boolean {
+    var inpt = getElementWithID(fieldRole + "_input");
+    var help = getElementWithID(fieldRole + "_help");
+    if (inpt != null && help != null) {
+      if (inpt.value==""||
+        Number(inpt.value) <= Number(inpt.max) &&
+        Number(inpt.min) <= Number(inpt.value)
+      ) {
         inpt.classList.remove("is-danger");
-        inpt.classList.remove("is-success");
-        icon.classList.remove("fa-exclamation-triangle");
-        icon.classList.remove("fa-check");
-        help.innerHTML = "";
-        inpt.parentElement?.classList.remove("has-icons-right")
-      } else if (Number(val)<100) {
-        inpt.parentElement?.classList.add("has-icons-right")
-        inpt.classList.add("is-success");
-        inpt.classList.remove("is-danger");
-        icon.classList.add("fa-check");
-        icon.classList.remove("fa-exclamation-triangle");
-        help.innerHTML = "";
-      }else{
-      inpt.parentElement?.classList.add("has-icons-right")
-      inpt.classList.remove("is-success");
-      inpt.classList.add("is-danger");
-      icon.classList.remove("fa-check");
-      icon.classList.add("fa-exclamation-triangle");
-      help.innerHTML ="message";
+        help.style.display="none";
+        return inpt.value!="";
+      } else {
+        inpt.classList.add("is-danger");
+        help.style.display="block";
+        return false;
+      }
+    } else {
+      window.alert("something gone wrong :(");
+      return false;
     }
-  } else {
-    window.alert("something gone wrong :(");
   }
-}}
+}
