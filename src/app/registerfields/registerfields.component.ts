@@ -106,9 +106,9 @@ export class RegisterfieldsComponent implements OnInit {
     locationValidate();
   }
   onSubmit(){
-    var userName = getElementWithID("register_nickname_input").value;
-    var userEmail = getElementWithID("register_email_input").value;
-    var userPass = getElementWithID("register_password_input").value;
+    var userName = getElementWithID("nickname_input").value;
+    var userEmail = getElementWithID("email_input").value;
+    var userPass = getElementWithID("password_input").value;
     if (
       [
         inputStyle("nickname"),
