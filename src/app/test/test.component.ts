@@ -526,14 +526,18 @@ export class TestComponent implements OnInit {
         if (docSnap.exists()) {
           var tests = docSnap.data()["tests"];
           var params = this.fillParams();
-          tests[Object.keys(docSnap.data()["tests"]).length + 1] = params;
-          await updateDoc(docRef, {
-            tests,
-          });
+          tests[Object.keys(tests).length + 1] = params;
 
-          this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
-          this.Classify.classifyOne(params).subscribe((res:string) => {
-            window.alert("your chances to have stroke are: "+res+"%");
+          var results = docSnap.data()["results"];
+
+          this.Classify.classifyOne(params).subscribe(async (res: string) => {
+            results[Object.keys(results).length + 1] = res;
+            await updateDoc(docRef, {
+              tests,
+              results,
+            });
+            this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+            window.alert("your chances to have stroke are: " + res + "%");
           });
         } else {
           // docSnap.data() will be undefined in this case

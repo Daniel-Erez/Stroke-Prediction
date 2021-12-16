@@ -1,8 +1,9 @@
 import { getElementWithID, locationValidate, sleep } from "src/assets/funcs";
 import { fire } from "./../../environments/environment";
 import { Component, OnInit } from "@angular/core";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Router } from "@angular/router";
+import { ClassifyService } from "../classify.service";
 
 @Component({
   selector: "app-profile",
@@ -38,7 +39,7 @@ import { Router } from "@angular/router";
   ],
 })
 export class ProfileComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private Classify: ClassifyService) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -93,6 +94,8 @@ export class ProfileComponent implements OnInit {
     if (docSnap.exists()) {
       var tests = docSnap.data()["tests"];
       var curTest = tests[Number(elementId)];
+      var results = docSnap.data()["results"];
+      var curRes = results[Number(elementId)];
       var arrCurTest = [];
       for (let key in curTest) {
         let value = curTest[key];
@@ -109,7 +112,7 @@ export class ProfileComponent implements OnInit {
             if (value != 0) {
               value = String(parseFloat(value.toFixed(2)));
               units = " mg/dL";
-            }else{
+            } else {
               value = "Unknown";
               units = "";
             }
@@ -119,6 +122,11 @@ export class ProfileComponent implements OnInit {
         }
         arrCurTest.push(key + ": " + value + units);
       }
+      if (curRes == "NaN") {
+        curRes = await this.tryToClassify(elementId);
+        await sleep(300);
+      }
+      arrCurTest.push("probability" + ": " + curRes + "%");
       arrCurTest.sort(function (a, b: string): number {
         let order = [
           "gender",
@@ -131,6 +139,7 @@ export class ProfileComponent implements OnInit {
           "hypertension",
           "heart_disease",
           "avg_glucose_level",
+          "probability",
         ];
         return (
           order.indexOf(a.slice(0, a.indexOf(":"))) -
@@ -144,7 +153,10 @@ export class ProfileComponent implements OnInit {
       for (let key in arrCurTest) {
         openDiv.appendChild(document.createElement("br"));
         let value = arrCurTest[key];
-        let paramRow = document.createElement("span");
+        let paramRow;
+        if (value.slice(0, value.indexOf(":")) == "probability")
+          paramRow = document.createElement("strong");
+        else paramRow = document.createElement("span");
         paramRow.innerHTML = value;
         openDiv.appendChild(paramRow);
       }
@@ -152,6 +164,34 @@ export class ProfileComponent implements OnInit {
   }
 
   ttest(event: any): void {}
+
+  async tryToClassify(elementId: string): Promise<string> {
+    var user = fire.auth.currentUser;
+    if (user != null) {
+      const docRef = doc(fire.db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        var tests = docSnap.data()["tests"];
+        var curTest = tests[Number(elementId)];
+        var results = docSnap.data()["results"];
+        this.Classify.classifyOne(curTest).subscribe(async (res: string) => {
+          results[Number(elementId)] = res;
+          await updateDoc(docRef, {
+            results,
+          });
+          return res;
+        });
+        return "NaN";
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("something gone wrong :(");
+        return "NaN";
+      }
+    } else {
+      console.log("something gone wrong :(");
+      return "NaN";
+    }
+  }
 
   async insertTests(): Promise<void> {
     while (fire.auth.currentUser == null) {
