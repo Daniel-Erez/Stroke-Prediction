@@ -71,13 +71,6 @@ export function getElementWithName(name:string,place:number=0):HTMLInputElement{
   return (<HTMLInputElement>(document.getElementsByName(name)[place]));
 }
 
-export function temp():void {
-  var hash = location.hash;
-  var loged = window.sessionStorage.getItem("log");
-  console.log(hash);
-  console.log(loged);
-}
-
 export function sleep(ms: number) {
   return new Promise( resolve => setTimeout(resolve, ms) );
 }
