@@ -14,10 +14,14 @@ export class ClassifyService {
 
     return this.http.post<any>(this.url, JSON.stringify(json)).pipe(
       map((res) => {
-        //console.log(res);
-        let final: string = res.body;
-        //console.log(final);
-        return final.replace("[", "").replace("]", "");
+        if (res.statusCode == 200) {
+          //console.log(res);
+          let final: string = res.body;
+          //console.log(final);
+          return final.replace("[", "").replace("]", "");
+        } else {//if (res.statusCode == 400) 
+          return "NaN"
+        }
       })
     );
   }
@@ -27,11 +31,19 @@ export class ClassifyService {
 
     return this.http.post<any>(this.url, JSON.stringify(json)).pipe(
       map((res) => {
-        //console.log(res);
-        let final: string = res.body;
-        //console.log(final);
-        final= final.replace("[", "").replace("]", "");
-        return final.split(", ");
+        if (res.statusCode == 200) {
+          //console.log(res);
+          let final: string = res.body;
+          //console.log(final);
+          final = final.replace("[", "").replace("]", "");
+          return final.split(", ");
+        } else{// if (res.statusCode == 400) 
+          let ret=[];
+          for (let i=0;i<testsList.length;i++){
+              ret.push("NaN")
+          }
+          return ret
+        }
       })
     );
   }
