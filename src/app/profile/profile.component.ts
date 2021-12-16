@@ -14,7 +14,7 @@ import { Router } from "@angular/router";
       <div class="title"><span id="uName"></span></div>
 
       <div id="results-wrapper" role="results" class="columns is-multiline">
-      <app-no-tests class="column" id="noTests"></app-no-tests>
+        <app-no-tests class="column" id="noTests"></app-no-tests>
         <!-- example of an open result
         <div class="column is-one-third">
           <div id="0" class="box is-clickable has-background-info-light" (click)="openTest($event)">
@@ -27,13 +27,15 @@ import { Router } from "@angular/router";
     </div>
     <!------------------------------end html code------------------------------>
   `,
-  styles: [`
-  /*------------------------------start css code------------------------------*/
-  #noTests{
-    display:none;
-  }
-  /*------------------------------end css code------------------------------*/
-  `],
+  styles: [
+    `
+      /*------------------------------start css code------------------------------*/
+      #noTests {
+        display: none;
+      }
+      /*------------------------------end css code------------------------------*/
+    `,
+  ],
 })
 export class ProfileComponent implements OnInit {
   constructor(private router: Router) {}
@@ -66,13 +68,13 @@ export class ProfileComponent implements OnInit {
   }
 
   async openTest(event: any): Promise<void> {
-    let element=event.target as Element;
+    let element = event.target as Element;
     let elementId: string = element.id;
     var openDiv = getElementWithID("tOpen");
     if (openDiv != null) {
-      let close=openDiv.parentElement==element;
+      let close = openDiv.parentElement == element;
       openDiv.remove();
-      if(close) return;
+      if (close) return;
     }
     var divToCreate = document.createElement("div");
     divToCreate.setAttribute("id", "tOpen");
@@ -93,31 +95,29 @@ export class ProfileComponent implements OnInit {
       var curTest = tests[Number(elementId)];
       var arrCurTest = [];
       for (let key in curTest) {
-        if (key != "id") {
-          let value = curTest[key];
-          let units: string;
-          switch (key) {
-            case "age":
-              units = " Years old";
-              break;
-            case "bmi":
+        let value = curTest[key];
+        let units: string;
+        switch (key) {
+          case "age":
+            units = " Years old";
+            break;
+          case "bmi":
+            value = String(parseFloat(value.toFixed(2)));
+            units = " kg/m²";
+            break;
+          case "avg_glucose_level":
+            if (value != 0) {
               value = String(parseFloat(value.toFixed(2)));
-              units = " kg/m²";
-              break;
-            case "avg_glucose_level":
-              try {
-                value = String(parseFloat(value.toFixed(2)));
-                units = " mg/dL";
-              } catch {
-                value = "Unknown";
-                units = "";
-              }
-              break;
-            default:
+              units = " mg/dL";
+            }else{
+              value = "Unknown";
               units = "";
-          }
-          arrCurTest.push(key + ": " + value + units);
+            }
+            break;
+          default:
+            units = "";
         }
+        arrCurTest.push(key + ": " + value + units);
       }
       arrCurTest.sort(function (a, b: string): number {
         let order = [
@@ -165,7 +165,7 @@ export class ProfileComponent implements OnInit {
     if (docSnap.exists()) {
       var tests = docSnap.data()["tests"];
       if (Object.keys(tests).length == 0) {
-        getElementWithID("noTests").style.display="block";
+        getElementWithID("noTests").style.display = "block";
       } else {
         for (let i = 0; i < Object.keys(tests).length; i++) {
           // <div class="column is-one-third">

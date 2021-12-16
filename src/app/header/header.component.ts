@@ -36,7 +36,8 @@ import { fire } from "src/environments/environment";
 
         <div id="main-menu" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item" routerLink="">Home</a>
+          <a class="navbar-item" routerLink="">Home</a>
+          <a class="navbar-item" routerLink="about">About</a>
             <a class="navbar-item" routerLink="test" *ngIf="userLogin()"
               >Test Yourself</a
             >
