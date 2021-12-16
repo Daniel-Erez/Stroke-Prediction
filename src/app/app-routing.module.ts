@@ -1,3 +1,4 @@
+import { AboutComponent } from './about/about.component';
 import { LogoPageComponent } from './logo-page/logo-page.component';
 import { TestComponent } from './test/test.component';
 import { RegisterfieldsComponent } from './registerfields/registerfields.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "logo", component: LogoPageComponent },
   { path: "test", component: TestComponent },
-  { path: "none", component: NoneComponent }];
+  { path: "none", component: NoneComponent },
+  { path: "about", component: AboutComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
