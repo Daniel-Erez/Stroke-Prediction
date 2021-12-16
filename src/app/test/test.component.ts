@@ -7,6 +7,7 @@ import {
   locationValidate,
 } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
+import { ClassifyService } from "../classify.service";
 
 @Component({
   selector: "app-test",
@@ -390,7 +391,7 @@ import { fire } from "src/environments/environment";
   ],
 })
 export class TestComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private Classify: ClassifyService) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -524,13 +525,16 @@ export class TestComponent implements OnInit {
 
         if (docSnap.exists()) {
           var tests = docSnap.data()["tests"];
-          tests[Object.keys(docSnap.data()["tests"]).length + 1] =
-            this.fillParams();
+          var params = this.fillParams();
+          tests[Object.keys(docSnap.data()["tests"]).length + 1] = params;
           await updateDoc(docRef, {
             tests,
           });
 
           this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+          this.Classify.classifyOne(params).subscribe((res:string) => {
+            window.alert("your chances to have stroke are: "+res+"%");
+          });
         } else {
           // docSnap.data() will be undefined in this case
           console.log("something gone wrong :(");

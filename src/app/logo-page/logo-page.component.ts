@@ -1,4 +1,4 @@
-import { ClassifyService } from './../classify.service';
+import { ClassifyService } from "./../classify.service";
 import { Component, OnInit } from "@angular/core";
 import { doc, getDoc } from "firebase/firestore";
 import { sleep } from "src/assets/funcs";
@@ -8,7 +8,6 @@ import { fire } from "src/environments/environment";
   selector: "app-logo-page",
   template: `
     <!------------------------------start html code------------------------------>
-    <div class="button" (click)="clasif()">press me</div>
     <p>It's just the logo, nothing particularly interesting</p>
     <div *ngIf="userLogin()">
       <strong
@@ -22,7 +21,7 @@ import { fire } from "src/environments/environment";
   styles: [],
 })
 export class LogoPageComponent implements OnInit {
-  constructor(private Classify:ClassifyService) {}
+  constructor(private Classify: ClassifyService) {}
 
   ngOnInit(): void {}
   userLogin(): boolean {
@@ -36,9 +35,10 @@ export class LogoPageComponent implements OnInit {
     var br = document.createElement("br");
     el.parentElement?.parentElement?.appendChild(br);
     el.parentElement?.parentElement?.appendChild(massege);
+    this.clasif()
   }
-  async clasif():Promise<void> {
-    if (window.sessionStorage.getItem("log")=="false"){
+  async clasif(): Promise<void> {
+    if (window.sessionStorage.getItem("log") == "false") {
       console.log("log in first");
       return;
     }
@@ -51,7 +51,17 @@ export class LogoPageComponent implements OnInit {
 
     if (docSnap.exists()) {
       var tests = docSnap.data()["tests"];
-      this.Classify.classifyOne(tests[1]).subscribe(res => console.log(res));
+      var arr=[];
+      for (let x in tests) {
+        arr.push(tests[x]);
+      }
+      this.Classify.classifyMany(arr).subscribe((res) => {
+        let output="all results:\n";
+        for (let i in res){
+          output+="\t"+"\t"+"\ttest "+i+" : "+res[i]+"%\n";
+        }
+        console.log(output);
+      });
     }
   }
 }

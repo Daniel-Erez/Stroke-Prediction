@@ -1,7 +1,6 @@
-import { AppComponent } from './../app.component';
 import { Component, OnInit } from "@angular/core";
 import { signOut } from "@firebase/auth";
-import { locationValidate, sleep, temp } from "src/assets/funcs";
+import { locationValidate, sleep } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
 
 @Component({
@@ -36,16 +35,13 @@ import { fire } from "src/environments/environment";
 
         <div id="main-menu" class="navbar-menu">
           <div class="navbar-start">
-          <a class="navbar-item" routerLink="">Home</a>
-          <a class="navbar-item" routerLink="about">About</a>
+            <a class="navbar-item" routerLink="">Home</a>
+            <a class="navbar-item" routerLink="about">About</a>
             <a class="navbar-item" routerLink="test" *ngIf="userLogin()"
               >Test Yourself</a
             >
             <a class="navbar-item" routerLink="profile" *ngIf="userLogin()"
               >Profile</a
-            >
-            <a class="navbar-item" (click)="forchck()" *ngIf="!userLogin()"
-              >temp</a
             >
           </div>
 
@@ -84,7 +80,7 @@ import { fire } from "src/environments/environment";
   `,
   styles: [
     `
-  /*------------------------------start css code------------------------------*/
+      /*------------------------------start css code------------------------------*/
       .brand-wrapper {
         padding: 0;
         width: 220px;
@@ -92,13 +88,13 @@ import { fire } from "src/environments/environment";
       .brand-wrapper img {
         width: 100%;
         height: 90%;
-        max-height:unset;
+        max-height: unset;
       }
-      .navbar-item{
-        font-size:large;
+      .navbar-item {
+        font-size: large;
       }
-  /*------------------------------end css code------------------------------*/
-  `,
+      /*------------------------------end css code------------------------------*/
+    `,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -144,9 +140,5 @@ export class HeaderComponent implements OnInit {
       window.sessionStorage.setItem("log", "false");
       locationValidate();
     });
-  }
-
-  forchck(): void {
-    temp();
   }
 }
