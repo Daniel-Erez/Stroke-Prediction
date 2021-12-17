@@ -74,3 +74,18 @@ export function getElementWithName(name:string,place:number=0):HTMLInputElement{
 export function sleep(ms: number) {
   return new Promise( resolve => setTimeout(resolve, ms) );
 }
+
+export function converter(STRcode: string, type:string):string {
+  var code=Number(STRcode);
+  var genderDict={0: 'Female', 1: 'Male'}
+  if(type=="gender" &&(code==1||code==0)) return genderDict[code];
+  var workDict={0: 'Govt_job', 1: 'Never_worked', 2: 'Private', 3: 'Self-employed', 4: 'children'}
+  if(type=="work_type" &&(code==1||code==0||code==2||code==3||code==4)) return workDict[code];
+  var residenceDict={0: 'Rural', 1: 'Urban'}
+  if(type=="Residence_type" &&(code==1||code==0)) return residenceDict[code];
+  var smokingDict={0: 'Unknown', 1: 'formerly smoked', 2: 'never smoked', 3: 'smokes'}
+  if(type=="smoking_status" &&(code==1||code==0||code==2||code==3)) return smokingDict[code];
+  var otherDict={0: 'No', 1: 'Yes'}
+  if((type=="hypertension"||type=="heart_disease"||type=="ever_married") &&(code==1||code==0)) return otherDict[code];
+  return STRcode;
+}
