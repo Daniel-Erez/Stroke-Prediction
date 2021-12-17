@@ -1,4 +1,4 @@
-import { getElementWithID, locationValidate, sleep } from "src/assets/funcs";
+import { converter, getElementWithID, locationValidate, sleep } from "src/assets/funcs";
 import { fire } from "./../../environments/environment";
 import { Component, OnInit } from "@angular/core";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -153,11 +153,26 @@ export class ProfileComponent implements OnInit {
       for (let key in arrCurTest) {
         openDiv.appendChild(document.createElement("br"));
         let value = arrCurTest[key];
+        let type=value.slice(0, value.indexOf(":"));
+        
+        let isUnits=true;
+        
+        if (value.indexOf(" ",value.indexOf(":")+2)==-1)  isUnits=false;
+        let units=value.slice(value.indexOf(" ",value.indexOf(":")+2));
+        let code=value.slice(value.indexOf(":")+2,value.indexOf(" ",value.indexOf(":")+2));
+        if (!isUnits)  {
+          units="";
+          code=value.slice(value.indexOf(":")+2)
+        }
+        
+        console.log(type+": "+code+","+code.length);
+        console.log(type+": "+units+","+units.length);
+        if (units==code) units="";
         let paramRow;
-        if (value.slice(0, value.indexOf(":")) == "probability")
+        if (type == "probability")
           paramRow = document.createElement("strong");
         else paramRow = document.createElement("span");
-        paramRow.innerHTML = value;
+        paramRow.innerHTML = type+": "+converter(code,type)+units;
         openDiv.appendChild(paramRow);
       }
     }
