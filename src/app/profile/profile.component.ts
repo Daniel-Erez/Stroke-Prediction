@@ -164,9 +164,6 @@ export class ProfileComponent implements OnInit {
           units="";
           code=value.slice(value.indexOf(":")+2)
         }
-        
-        console.log(type+": "+code+","+code.length);
-        console.log(type+": "+units+","+units.length);
         if (units==code) units="";
         let paramRow;
         if (type == "probability")
