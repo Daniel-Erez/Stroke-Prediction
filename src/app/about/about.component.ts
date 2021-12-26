@@ -17,7 +17,24 @@ import { Component, OnInit } from "@angular/core";
       </h2>
 
       <br /><br /><br /><br />
-      <h3>About Us</h3>
+      <h3>About Us</h3><br />
+      <div class="columns">
+        <div class="column">
+          <app-daniel></app-daniel>
+        </div>
+        <div class="column">
+          <app-lisa></app-lisa>
+        </div>
+        <div class="column">
+          <app-maayan></app-maayan>
+        </div>
+        <div class="column">
+          <app-ori></app-ori>
+        </div>
+        <div class="column">
+          <app-sapir></app-sapir>
+        </div>
+      </div>
     </body>
     <!------------------------------end html code------------------------------>
   `,
@@ -27,7 +44,6 @@ import { Component, OnInit } from "@angular/core";
       h1 {
         text-align: center;
         font-size: 30px;
-
         text-decoration: underline solid royalblue 4px;
       }
       h2 {
@@ -37,7 +53,6 @@ import { Component, OnInit } from "@angular/core";
       h3 {
         text-align: center;
         font-size: 20px;
-
         text-decoration: underline solid royalblue;
       }
       /* ------------------------------end css code------------------------------ */
