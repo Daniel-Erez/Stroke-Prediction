@@ -20,7 +20,7 @@ import { ClassifyService } from "../classify.service";
         <div class="column is-one-third">
           <div id="0" class="box is-clickable has-background-info-light" (click)="openTest($event)">
             <span class="is-size-3 has-text-weight-semibold" style="pointer-events: none;">test 0</span>
-            <div id="tOpen" class="box has-background-link-light" style="text-align: center; pointer-events: none;"><strong>Parameters:</strong><br><span>gender: Male</span><br><span>age: 50</span><br><span>bmi: 200000</span><br><span>ever_married: Yes</span><br><span>work_type: Self-employed</span><br><span>Residence_type: Urban</span><br><span>smoking_status: smokes</span><br><span>hypertension: 0</span><br><span>heart_disease: 1</span><br><span>avg_glucose_level: Unknown</span><br></div>
+            <div id="tOpen" class="box has-background-link-light" style="text-align: left; pointer-events: none;"><strong>Parameters:</strong><br><span>gender: Male</span><br><span>age: 50</span><br><span>bmi: 200000</span><br><span>ever_married: Yes</span><br><span>work_type: Self-employed</span><br><span>Residence_type: Urban</span><br><span>smoking_status: smokes</span><br><span>hypertension: 0</span><br><span>heart_disease: 1</span><br><span>avg_glucose_level: Unknown</span><br></div>
           </div>
         </div>
         -->
@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit {
     var divToCreate = document.createElement("div");
     divToCreate.setAttribute("id", "tOpen");
     divToCreate.setAttribute("class", "box has-background-link-light");
-    divToCreate.style.textAlign = "center";
+    divToCreate.style.textAlign = "left";
     divToCreate.style.pointerEvents = "none";
     getElementWithID(elementId).appendChild(divToCreate);
 
@@ -156,8 +156,8 @@ export class ProfileComponent implements OnInit {
         let type=value.slice(0, value.indexOf(":"));
         
         let isUnits=true;
-        
         if (value.indexOf(" ",value.indexOf(":")+2)==-1)  isUnits=false;
+        
         let units=value.slice(value.indexOf(" ",value.indexOf(":")+2));
         let code=value.slice(value.indexOf(":")+2,value.indexOf(" ",value.indexOf(":")+2));
         if (!isUnits)  {
@@ -174,8 +174,6 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
-
-  ttest(event: any): void {}
 
   async tryToClassify(elementId: string): Promise<string> {
     var user = fire.auth.currentUser;
@@ -219,6 +217,7 @@ export class ProfileComponent implements OnInit {
       if (Object.keys(tests).length == 0) {
         getElementWithID("noTests").style.display = "block";
       } else {
+        getElementWithID("noTests").remove();
         for (let i = 0; i < Object.keys(tests).length; i++) {
           // <div class="column is-one-third">
           //   <div class="box is-clickable has-background-info-light" id="key[i]" (click)="openTest($event)">
