@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { FooterComponent } from "./footer/footer.component";
@@ -13,6 +13,8 @@ import { ProfileComponent } from "./profile/profile.component";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { TestComponent } from './test/test.component';
 import { NoTestsComponent } from './no-tests/no-tests.component';
+import { LogoPageComponent } from './logo-page/logo-page.component';
+import { AboutComponent } from './about/about.component';
 
 if (window.sessionStorage.getItem("log") == null) {
   window.sessionStorage.setItem("log", "false");
@@ -30,8 +32,10 @@ if (window.sessionStorage.getItem("log") == null) {
     ProfileComponent,
     TestComponent,
     NoTestsComponent,
+    LogoPageComponent,
+    AboutComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule,],
+  imports: [HttpClientModule,BrowserModule, AppRoutingModule,],
   providers: [ {
     provide: LocationStrategy,
     useClass: HashLocationStrategy

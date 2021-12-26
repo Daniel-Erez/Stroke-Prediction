@@ -7,6 +7,7 @@ import {
   locationValidate,
 } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
+import { ClassifyService } from "../classify.service";
 
 @Component({
   selector: "app-test",
@@ -25,8 +26,8 @@ import { fire } from "src/environments/environment";
             <div class="control is-expanded">
               <div class="select is-medium is-expanded">
                 <select name="Gender" id="gender_input">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
+                  <option value="1">Male</option>
+                  <option value="0">Female</option>
                 </select>
               </div>
             </div>
@@ -160,11 +161,11 @@ import { fire } from "src/environments/environment";
             <div class="control is-expanded">
               <div class="select is-medium">
                 <select name="WorkType" id="job_input">
-                  <option value="Never_worked">Unemployed</option>
-                  <option value="Private">Private</option>
-                  <option value="Self-employed">Self-employed</option>
-                  <option value="Children">Children</option>
-                  <option value="Govt_job">Government job</option>
+                  <option value="1">Unemployed</option>
+                  <option value="2">Private</option>
+                  <option value="3">Self-employed</option>
+                  <option value="4">Children</option>
+                  <option value="0">Government job</option>
                 </select>
               </div>
             </div>
@@ -201,9 +202,9 @@ import { fire } from "src/environments/environment";
             <div class="control is-expanded">
               <div class="select is-medium">
                 <select name="SmokingStastus" id="smoke_input">
-                  <option value="never smoked">Never smoked</option>
-                  <option value="smokes">smokes</option>
-                  <option value="formerly smoked">Formerly smoked</option>
+                  <option value="2">Never smoked</option>
+                  <option value="3">smokes</option>
+                  <option value="1">Formerly smoked</option>
                 </select>
               </div>
             </div>
@@ -325,7 +326,9 @@ import { fire } from "src/environments/environment";
           </div>
         </div>
       </div>
-      <p id="avg_glucose_level_help" class="help is-danger">I have no words...</p>
+      <p id="avg_glucose_level_help" class="help is-danger">
+        I have no words...
+      </p>
 
       <div class="button is-success is-large" (click)="sendTest()">
         Click to see the results
@@ -336,8 +339,8 @@ import { fire } from "src/environments/environment";
   styles: [
     `
       /*------------------------------start css code------------------------------*/
-      .help{
-        display:none;
+      .help {
+        display: none;
       }
       .wrapper {
         padding-left: calc(50% - 200px);
@@ -388,7 +391,7 @@ import { fire } from "src/environments/environment";
   ],
 })
 export class TestComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private Classify: ClassifyService) {}
 
   ngOnInit(): void {
     locationValidate();
@@ -413,9 +416,9 @@ export class TestComponent implements OnInit {
   }
 
   glucoseDontKnow(): void {
-    var inpt=getElementWithID("avg_glucose_level_input")
-    inpt.value="";
-    this.styleChange("avg_glucose_level")
+    var inpt = getElementWithID("avg_glucose_level_input");
+    inpt.value = "";
+    this.styleChange("avg_glucose_level");
     getElementWithID("avg_glucose_level_input").disabled = !getElementWithID(
       "avg_glucose_level_input"
     ).disabled;
@@ -433,14 +436,14 @@ export class TestComponent implements OnInit {
     var weight = Number(getElementWithID("weight_input").value) / units;
     var bmi = weight / height ** 2;
     var marry = getElementWithName("EverMarried");
-    var isMarry: String;
-    if (marry.checked) isMarry = "Yes";
-    else isMarry = "No";
+    var isMarry: number;
+    if (marry.checked) isMarry = 1;
+    else isMarry = 0;
     var job = getElementWithID("job_input").value;
     var residence = getElementWithName("ResidenceType");
-    var resType: String;
-    if (residence.checked) resType = "Rural";
-    else resType = "Urban";
+    var resType: number;
+    if (residence.checked) resType = 0;
+    else resType = 1;
     var smoke = getElementWithID("smoke_input").value;
     var hypertension = getElementWithName("hypertension");
     var hyper: number;
@@ -451,21 +454,20 @@ export class TestComponent implements OnInit {
     if (heart_disease.checked) hrtDss = 1;
     else hrtDss = 0;
     var avg_glc = getElementWithID("avg_glucose_level_input");
-    var avgGlc: Number | String;
-    if (avg_glc.disabled) avgGlc = "";
+    var avgGlc: number;
+    if (avg_glc.disabled) avgGlc = 0;
     else {
       units = Number(getElementWithID("avg_glucose_level_units").value);
       avgGlc = Number(avg_glc.value) / units;
     }
     return {
-      id: "",
-      gender: gender,
+      gender: Number(gender),
       age: Number(age),
       bmi: bmi,
       ever_married: isMarry,
-      work_type: job,
+      work_type: Number(job),
       Residence_type: resType,
-      smoking_status: smoke,
+      smoking_status: Number(smoke),
       hypertension: hyper,
       heart_disease: hrtDss,
       avg_glucose_level: avgGlc,
@@ -474,31 +476,28 @@ export class TestComponent implements OnInit {
 
   validTest(): number {
     var gender = getElementWithID("gender_input").value;
-    var genders = ["Male", "Female"];
+    var genders = ["1", "0"];
     if (!genders.includes(gender)) return 0;
     var age = getElementWithID("age_input").value;
     if (age == "") return 0;
+    if (!this.styleChange("age")) return -1;
     var height = getElementWithID("height_input").value;
     if (height == "") return 0;
+    if (!this.styleChange("height")) return -1;
     var weight = getElementWithID("weight_input").value;
     if (weight == "") return 0;
+    if (!this.styleChange("weight")) return -1;
     var marry0 = getElementWithName("EverMarried", 0);
     var marry1 = getElementWithName("EverMarried", 1);
     if (!marry0.checked && !marry1.checked) return 0;
     var job = getElementWithID("job_input").value;
-    var jobs = [
-      "Never_worked",
-      "Private",
-      "Self-employed",
-      "Children",
-      "Govt_job",
-    ];
+    var jobs = ["0", "1", "2", "3", "4"];
     if (!jobs.includes(job)) return 0;
     var residence0 = getElementWithName("ResidenceType", 0);
     var residence1 = getElementWithName("ResidenceType", 1);
     if (!residence0.checked && !residence1.checked) return 0;
     var smoke = getElementWithID("smoke_input").value;
-    var smokes = ["never smoked", "smokes", "formerly smoked"];
+    var smokes = ["1", "2", "3"];
     if (!smokes.includes(smoke)) return 0;
     var hypertension0 = getElementWithName("hypertension", 0);
     var hypertension1 = getElementWithName("hypertension", 1);
@@ -526,13 +525,20 @@ export class TestComponent implements OnInit {
 
         if (docSnap.exists()) {
           var tests = docSnap.data()["tests"];
-          tests[Object.keys(docSnap.data()["tests"]).length + 1] =
-            this.fillParams();
-          await updateDoc(docRef, {
-            tests,
-          });
+          var params = this.fillParams();
+          tests[Object.keys(tests).length + 1] = params;
 
-          this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+          var results = docSnap.data()["results"];
+
+          this.Classify.classifyOne(params).subscribe(async (res: string) => {
+            results[Object.keys(results).length + 1] = res;
+            await updateDoc(docRef, {
+              tests,
+              results,
+            });
+            this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+            window.alert("your chances to have stroke are: " + res + "%");
+          });
         } else {
           // docSnap.data() will be undefined in this case
           console.log("something gone wrong :(");
@@ -541,7 +547,7 @@ export class TestComponent implements OnInit {
     } else if (this.validTest() == 0) {
       window.alert("complete all fields!");
     } else if (this.validTest() == -1) {
-      window.alert("please fill ur real parameters");
+      window.alert("please fill valid parameters");
     } else {
       window.alert("something gone wrong :(");
     }
@@ -550,17 +556,20 @@ export class TestComponent implements OnInit {
   styleChange(fieldRole: string): boolean {
     var inpt = getElementWithID(fieldRole + "_input");
     var help = getElementWithID(fieldRole + "_help");
+    let ageZero = inpt.value == "0" && fieldRole == "age";
     if (inpt != null && help != null) {
-      if (inpt.value==""||
-        Number(inpt.value) <= Number(inpt.max) &&
-        Number(inpt.min) <= Number(inpt.value)
+      if (
+        inpt.value == "" ||
+        (Number(inpt.value) <= Number(inpt.max) &&
+          !ageZero &&
+          Number(inpt.min) <= Number(inpt.value))
       ) {
         inpt.classList.remove("is-danger");
-        help.style.display="none";
-        return inpt.value!="";
+        help.style.display = "none";
+        return inpt.value != "";
       } else {
         inpt.classList.add("is-danger");
-        help.style.display="block";
+        help.style.display = "block";
         return false;
       }
     } else {

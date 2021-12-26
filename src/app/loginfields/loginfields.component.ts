@@ -86,6 +86,11 @@ export class LoginfieldsComponent implements OnInit {
   onSubmit() {
     var userEmail = getElementWithID("email_input").value;
     var userPass = getElementWithID("password_input").value;
+    if (
+      [
+        inputStyle("email"),
+        userPass!=""
+      ].every((x) => x)){
     if (getElementWithID("remember-me").checked) {
       setPersistence(fire.auth, browserLocalPersistence);
     } else {
@@ -99,9 +104,13 @@ export class LoginfieldsComponent implements OnInit {
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-        window.alert("Error [" + errorCode + "]: " + errorMessage);
+        if (errorCode=="auth/invalid-email") window.alert("can't use this email");
+        else if (errorCode=="auth/user-not-found") window.alert("User does not exist");
+        else window.alert("Error [" + errorCode + "]: " + errorMessage);
       });
-  }
+  }else{
+    window.alert("enter valid email and password!");
+  }}
   styleChange(fieldRole: "email" | "password"): void {
     inputStyle(fieldRole);
   }

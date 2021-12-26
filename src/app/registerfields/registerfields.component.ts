@@ -106,9 +106,9 @@ export class RegisterfieldsComponent implements OnInit {
     locationValidate();
   }
   onSubmit(){
-    var userName = getElementWithID("register_nickname_input").value;
-    var userEmail = getElementWithID("register_email_input").value;
-    var userPass = getElementWithID("register_password_input").value;
+    var userName = getElementWithID("nickname_input").value;
+    var userEmail = getElementWithID("email_input").value;
+    var userPass = getElementWithID("password_input").value;
     if (
       [
         inputStyle("nickname"),
@@ -123,6 +123,7 @@ export class RegisterfieldsComponent implements OnInit {
         await setDoc(doc(fire.db, "users", log.user.uid), {
           Name: userName,
             tests: {},
+            results:{}
         });
         window.sessionStorage.setItem("log", "true");
         this.router.navigateByUrl("/profile");
