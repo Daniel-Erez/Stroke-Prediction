@@ -18,14 +18,24 @@ import { Component, OnInit } from "@angular/core";
     </article> -->
     <div id="container">
       <div id="background">
-        <div id="first_circle"><p class="has-text-weight-bold has-text-black">Test yourself and help us help you</p></div>
-        <div id="second_circle"><p class="has-text-weight-bold has-text-black">How does it works?</p></div>
+        <div id="first_circle">
+          <a routerLink="test" class="has-text-weight-bold has-text-black"
+            >Test yourself and help us help you</a
+          >
+        </div>
+        <div id="second_circle">
+          <a routerLink="about" class="has-text-weight-bold has-text-black"
+            >How does it works?</a
+          >
+        </div>
       </div>
     </div>
     <!------------------------------end html code------------------------------>
   `,
   styles: [
-    `#container {
+    `
+      #container {
+        background: silver;
         display: block;
         position: relative;
         width: 100%;
@@ -37,7 +47,8 @@ import { Component, OnInit } from "@angular/core";
         width: 100%;
         height: 100%;
         background: url("src/assets/img/background.png") no-repeat;
-        background-size: 100% 100%;
+        background-size: cover;
+        font-size: 2.5vw;
       }
       #background div {
         position: absolute;
@@ -62,8 +73,13 @@ import { Component, OnInit } from "@angular/core";
         height: 0;
         padding: calc(15% / 2) 0;
       }
-      #container p {
+      #container a {
         text-align: center;
+      }
+      @media screen and (min-width: 1600px) {
+        #background {
+          font-size: 30px;
+        }
       }
     `,
   ],
@@ -71,7 +87,6 @@ import { Component, OnInit } from "@angular/core";
 export class HomeComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnDestroy(): void {}
 }
