@@ -1,10 +1,13 @@
+import { NoServiceMSGComponent } from "./../no-service-msg/no-service-msg.component";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { doc, getDoc, updateDoc } from "@firebase/firestore";
 import {
+  getElementWithClass,
   getElementWithID,
   getElementWithName,
   locationValidate,
+  sleep,
 } from "src/assets/funcs";
 import { fire } from "src/environments/environment";
 import { ClassifyService } from "../classify.service";
@@ -13,10 +16,11 @@ import { ClassifyService } from "../classify.service";
   selector: "app-test",
   template: `
     <!------------------------------start html code------------------------------>
+    <progress id="loader" class="progress is-info" max="100"></progress>
+    <app-no-service-msg class="main_el"></app-no-service-msg>
 
-    <div class="wrapper">
+    <div class="wrapper main_el">
       <p class="title is-underlined">Test yourself:</p>
-
       <div class="field is-horizontal">
         <div class="field-label row-center is-medium">
           <label class="label">Gender</label>
@@ -344,6 +348,9 @@ import { ClassifyService } from "../classify.service";
   styles: [
     `
       /*------------------------------start css code------------------------------*/
+      .main_el {
+        display: none;
+      }
       #tar {
         display: none;
       }
@@ -401,8 +408,18 @@ import { ClassifyService } from "../classify.service";
 export class TestComponent implements OnInit {
   constructor(private router: Router, private Classify: ClassifyService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     locationValidate();
+    await sleep(1500);
+    var service = this.Classify.isActive();
+    getElementWithID("loader").remove();
+    if (service) {
+      getElementWithClass("main_el", 1).style.display = "unset";
+      getElementWithClass("main_el", 0).remove();
+    } else {
+      getElementWithClass("main_el", 0).style.display = "unset";
+      getElementWithClass("main_el", 1).remove();
+    }
   }
 
   placeholderRange(id: String, min: number, max: number): void {
@@ -512,7 +529,7 @@ export class TestComponent implements OnInit {
     if (!heart_disease0.checked && !heart_disease1.checked) return 0;
     var avg_glc = getElementWithID("avg_glucose_level_input");
     if (!avg_glc.disabled && avg_glc.value == "") return 0;
-    if (!this.styleChange("avg_glucose_level")&&!avg_glc.disabled) return -1;
+    if (!this.styleChange("avg_glucose_level") && !avg_glc.disabled) return -1;
     var units = Number(getElementWithID("height_units").value);
     var numHeight = Number(height) / (units * 100);
     units = Number(getElementWithID("weight_units").value);
@@ -580,24 +597,28 @@ export class TestComponent implements OnInit {
       return false;
     }
   }
+
   showGauge(val: string) {
     var target = getElementWithID("tar");
     target.style.display = "unset";
     if (val == "NaN") {
       target.style.display = "none";
       target.src = "";
-    } else if (parseFloat(val) >= 0 && parseFloat(val) < 20){
+    } else if (parseFloat(val) >= 0 && parseFloat(val) < 20) {
       target.src = "../assets/img/lowRisk.png";
-    }
-    else if (parseFloat(val) >= 20 && parseFloat(val) < 50){
-      target.src = "../assets/img/mediumRisk.png";}
-    else if (parseFloat(val) >= 50 && parseFloat(val) <= 100){
-      target.src = "../assets/img/highRisk.png";}
-    else {
+    } else if (parseFloat(val) >= 20 && parseFloat(val) < 50) {
+      target.src = "../assets/img/mediumRisk.png";
+    } else if (parseFloat(val) >= 50 && parseFloat(val) <= 100) {
+      target.src = "../assets/img/highRisk.png";
+    } else {
       target.style.display = "none";
       target.src = "";
       console.log("something gone wrong :(");
     }
-      target.scrollIntoView();
+    target.scrollIntoView();
+  }
+
+  AWSservice(): boolean {
+    return this.Classify.isActive();
   }
 }

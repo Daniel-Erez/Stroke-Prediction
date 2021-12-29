@@ -6,9 +6,27 @@ import { map } from "rxjs";
   providedIn: "root",
 })
 export class ClassifyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    var params={
+      gender: 0,
+      age: 10,
+      bmi: 10,
+      ever_married: 0,
+      work_type: 0,
+      Residence_type: 0,
+      smoking_status: 0,
+      hypertension: 0,
+      heart_disease: 0,
+      avg_glucose_level: 50,
+    };
+    this.classifyOne(params).subscribe((res: string) => {
+      if(res=="NaN") this.active=false;
+      else this.active=true;
+      });
+  }
   private url = "https://s7i18gqkx3.execute-api.us-east-1.amazonaws.com/beta";
-
+  private active=false;
+  
   classifyOne(test: any) {
     let json = { Tests: [test] };
 
@@ -46,5 +64,9 @@ export class ClassifyService {
         }
       })
     );
+  }
+
+  isActive():boolean{
+    return this.active;
   }
 }
