@@ -59,7 +59,8 @@ export function locationValidate():void {
     (loged=="true" && userForbidden.includes(location.hash)) ||
     (loged=="false" && notUserForbidden.includes(location.hash))
   ) {
-    location.hash = "#/";
+    if(location.hash=="#/test")location.hash = "#/login";
+    else location.hash = "#/";
   }
 }
 
@@ -69,6 +70,10 @@ export function getElementWithID(id:string):HTMLInputElement{
 
 export function getElementWithName(name:string,place:number=0):HTMLInputElement{
   return (<HTMLInputElement>(document.getElementsByName(name)[place]));
+}
+
+export function getElementWithClass(clss:string,place:number=0):HTMLInputElement{
+  return (<HTMLInputElement>(document.getElementsByClassName(clss)[place]));
 }
 
 export function sleep(ms: number) {
