@@ -334,11 +334,19 @@ import { ClassifyService } from "../classify.service";
         Click to see the results
       </div>
     </div>
+    <div class="container has-text-centered">
+      <br /><br /><br />
+      <img id="tar" alt="result" />
+    </div>
+
     <!------------------------------end html code------------------------------>
   `,
   styles: [
     `
       /*------------------------------start css code------------------------------*/
+      #tar {
+        display: none;
+      }
       .help {
         display: none;
       }
@@ -536,8 +544,9 @@ export class TestComponent implements OnInit {
               tests,
               results,
             });
-            this.router.navigateByUrl(""); //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
+            //------------------------------------------------------continue here: after parameters sent successfully-------------------------------
             window.alert("your chances to have stroke are: " + res + "%");
+            this.gg(res);
           });
         } else {
           // docSnap.data() will be undefined in this case
@@ -576,5 +585,23 @@ export class TestComponent implements OnInit {
       window.alert("something gone wrong :(");
       return false;
     }
+  }
+  gg(val: string) {
+    var target = getElementWithID("tar");
+    target.style.display = "unset";
+    if (val == "NaN") {
+      target.style.display = "none";
+      target.src = "";
+    } else if (parseFloat(val) >=0 && parseFloat(val) < 20)
+      target.src = "../assets/img/lowRisk.png";
+    else if (parseFloat(val) >= 20 && parseFloat(val) < 50)
+      target.src = "../assets/img/mediumRisk.png";
+    else if (parseFloat(val) >= 50 && parseFloat(val) <= 100)
+      target.src = "../assets/img/highRisk.png";
+      else {
+        target.style.display = "none";
+        target.src = "";
+        console.log("something gone wrong :(")
+      }
   }
 }
