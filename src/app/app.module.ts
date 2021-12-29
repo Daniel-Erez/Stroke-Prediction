@@ -20,6 +20,7 @@ import { LisaComponent } from './developers/lisa.component';
 import { MaayanComponent } from './developers/maayan.component';
 import { SapirComponent } from './developers/sapir.component';
 import { OriComponent } from './developers/ori.component';
+import { NoServiceMSGComponent } from './no-service-msg/no-service-msg.component';
 
 if (window.sessionStorage.getItem("log") == null) {
   window.sessionStorage.setItem("log", "false");
@@ -44,6 +45,7 @@ if (window.sessionStorage.getItem("log") == null) {
     MaayanComponent,
     SapirComponent,
     OriComponent,
+    NoServiceMSGComponent,
   ],
   imports: [HttpClientModule,BrowserModule, AppRoutingModule,],
   providers: [ {

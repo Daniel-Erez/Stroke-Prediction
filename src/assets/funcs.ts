@@ -72,6 +72,10 @@ export function getElementWithName(name:string,place:number=0):HTMLInputElement{
   return (<HTMLInputElement>(document.getElementsByName(name)[place]));
 }
 
+export function getElementWithClass(clss:string,place:number=0):HTMLInputElement{
+  return (<HTMLInputElement>(document.getElementsByClassName(clss)[place]));
+}
+
 export function sleep(ms: number) {
   return new Promise( resolve => setTimeout(resolve, ms) );
 }
