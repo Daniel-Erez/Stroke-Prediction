@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit {
       }
       if (curRes == "NaN") {
         curRes = await this.tryToClassify(elementId);
-        await sleep(300);
+        await sleep(700);
       }
       arrCurTest.push("probability" + ": " + curRes + "%");
       arrCurTest.sort(function (a, b: string): number {
