@@ -5,7 +5,9 @@ import { map } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class ClassifyService {
+export class ClassifyService {  
+  private url = "https://s7i18gqkx3.execute-api.us-east-1.amazonaws.com/beta";
+  private active=false
   constructor(private http: HttpClient) {
     var params={
       gender: 0,
@@ -20,12 +22,11 @@ export class ClassifyService {
       avg_glucose_level: 50,
     };
     this.classifyOne(params).subscribe((res: string) => {
-      if(res=="NaN") this.active=false;
+      if(res==="NaN") this.active=false;
       else this.active=true;
       });
   }
-  private url = "https://s7i18gqkx3.execute-api.us-east-1.amazonaws.com/beta";
-  private active=false;
+;
   
   classifyOne(test: any) {
     let json = { Tests: [test] };
