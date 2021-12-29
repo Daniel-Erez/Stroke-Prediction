@@ -59,7 +59,8 @@ export function locationValidate():void {
     (loged=="true" && userForbidden.includes(location.hash)) ||
     (loged=="false" && notUserForbidden.includes(location.hash))
   ) {
-    location.hash = "#/";
+    if(location.hash=="#/test")location.hash = "#/login";
+    else location.hash = "#/";
   }
 }
 
