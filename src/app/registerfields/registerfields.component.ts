@@ -123,6 +123,7 @@ export class RegisterfieldsComponent implements OnInit {
         await setDoc(doc(fire.db, "users", log.user.uid), {
           Name: userName,
             tests: {},
+            STRtests:{},
             results:{}
         });
         window.sessionStorage.setItem("log", "true");

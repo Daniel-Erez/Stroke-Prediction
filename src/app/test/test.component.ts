@@ -1,4 +1,3 @@
-import { NoServiceMSGComponent } from "./../no-service-msg/no-service-msg.component";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { doc, getDoc, updateDoc } from "@firebase/firestore";
@@ -337,10 +336,10 @@ import { ClassifyService } from "../classify.service";
       <div class="button is-success is-large" (click)="sendTest()">
         Click to see the results
       </div>
-    </div>
-    <div class="container has-text-centered">
-      <br /><br /><br />
-      <img id="tar" alt="result" />
+      <div class="container has-text-centered">
+        <br /><br /><br />
+        <img id="tar" alt="result" />
+      </div>
     </div>
 
     <!------------------------------end html code------------------------------>
@@ -449,50 +448,186 @@ export class TestComponent implements OnInit {
     ).disabled;
   }
 
-  fillParams(): object {
-    var gender = getElementWithID("gender_input").value;
-    var age = getElementWithID("age_input").value;
-    var units = Number(getElementWithID("height_units").value);
-    var height = Number(getElementWithID("height_input").value) / (units * 100);
-    units = Number(getElementWithID("weight_units").value);
-    var weight = Number(getElementWithID("weight_input").value) / units;
-    var bmi = weight / height ** 2;
-    var marry = getElementWithName("EverMarried");
-    var isMarry: number;
-    if (marry.checked) isMarry = 1;
-    else isMarry = 0;
-    var job = getElementWithID("job_input").value;
-    var residence = getElementWithName("ResidenceType");
-    var resType: number;
-    if (residence.checked) resType = 0;
-    else resType = 1;
-    var smoke = getElementWithID("smoke_input").value;
-    var hypertension = getElementWithName("hypertension");
-    var hyper: number;
-    if (hypertension.checked) hyper = 1;
-    else hyper = 0;
-    var heart_disease = getElementWithName("heart_disease");
-    var hrtDss: number;
-    if (heart_disease.checked) hrtDss = 1;
-    else hrtDss = 0;
-    var avg_glc = getElementWithID("avg_glucose_level_input");
-    var avgGlc: number;
-    if (avg_glc.disabled) avgGlc = 0;
-    else {
-      units = Number(getElementWithID("avg_glucose_level_units").value);
-      avgGlc = Number(avg_glc.value) / units;
+  fillParams(str: boolean = false): object {
+    {
+      var gender = getElementWithID("gender_input");
+      var genderVal = null;
+      if (str) {
+        for (let child in gender.childNodes) {
+          var el = <HTMLOptionElement>gender.childNodes[child];
+          if (typeof el == "object" && el.value == gender.value) {
+            genderVal = el.innerHTML;
+          }
+        }
+      } else genderVal = Number(gender.value);
     }
+    {
+      var age = getElementWithID("age_input").value;
+      var ageVal = null;
+      if (str) ageVal = age + " Years Old";
+      else ageVal = Number(age);
+    }
+    {
+      var height = getElementWithID("height_input");
+      var heightVal = null;
+      var units = getElementWithID("height_units");
+      var unitsVal = null;
+      if (str) {
+        for (let child in units.childNodes) {
+          var el = <HTMLOptionElement>units.childNodes[child];
+          if (typeof el == "object" && el.value == units.value) {
+            unitsVal = el.innerHTML;
+          }
+        }
+        heightVal = height.value + " " + unitsVal;
+      }
+      unitsVal = Number(units.value);
+      var heightNum = Number(height.value) / (unitsVal * 100);
+    }
+    {
+      var weight = getElementWithID("weight_input");
+      var weightVal = null;
+      units = getElementWithID("weight_units");
+      unitsVal = null;
+      if (str) {
+        for (let child in units.childNodes) {
+          var el = <HTMLOptionElement>units.childNodes[child];
+          if (typeof el == "object" && el.value == units.value) {
+            unitsVal = el.innerHTML;
+          }
+        }
+        weightVal = weight.value + " " + unitsVal;
+      }
+      unitsVal = Number(units.value);
+      var weightNum = Number(weight.value) / unitsVal;
+    }
+    {
+      var bmiNum = weightNum / heightNum ** 2;
+      var bmiVal = null;
+      if (str) bmiVal = String(bmiNum.toFixed(2)) + " kg/m²";
+      else bmiVal = bmiNum;
+    }
+    {
+      var marry = getElementWithName("EverMarried");
+      var isMarry: number;
+      var StrMarry: string;
+      if (marry.checked) {
+        isMarry = 1;
+        StrMarry = "Yes";
+      } else {
+        isMarry = 0;
+        StrMarry = "No";
+      }
+    }
+    {
+      var job = getElementWithID("job_input");
+      var jobVal = null;
+      if (str) {
+        for (let child in job.childNodes) {
+          var el = <HTMLOptionElement>job.childNodes[child];
+          if (typeof el == "object" && el.value == job.value) {
+            jobVal = el.innerHTML;
+          }
+        }
+      } else jobVal = Number(job.value);
+    }
+    {
+      var residence = getElementWithName("ResidenceType");
+      var resType: number;
+      var StrRes: string;
+      if (residence.checked) {
+        resType = 0;
+        StrRes = "Rural";
+      } else {
+        resType = 1;
+        StrRes = "Urban";
+      }
+    }
+    {
+      var smoke = getElementWithID("smoke_input");
+      var smokeVal = null;
+      if (str) {
+        for (let child in smoke.childNodes) {
+          var el = <HTMLOptionElement>smoke.childNodes[child];
+          if (typeof el == "object" && el.value == smoke.value) {
+            smokeVal = el.innerHTML;
+          }
+        }
+      } else smokeVal = Number(smoke.value);
+    }
+    {
+      var hypertension = getElementWithName("hypertension");
+      var isHyper: number;
+      var StrHyper: string;
+      if (hypertension.checked) {
+        isHyper = 1;
+        StrHyper = "Yes";
+      } else {
+        isHyper = 0;
+        StrHyper = "No";
+      }
+    }
+    {
+      var heart_disease = getElementWithName("heart_disease");
+      var hrtDss: number;
+      var StrHrtDss: string;
+      if (heart_disease.checked) {
+        hrtDss = 1;
+        StrHrtDss = "Yes";
+      } else {
+        hrtDss = 0;
+        StrHrtDss = "No";
+      }
+    }
+    {
+      var avg_glc = getElementWithID("avg_glucose_level_input");
+      var avg_glcVal = null;
+      var units = getElementWithID("avg_glucose_level_units");
+      var unitsVal = null;
+      if (avg_glc.disabled) {
+        if (str) avg_glcVal = "Unknown";
+        else avg_glcVal = 0;
+      } else {
+        if (str) {
+          for (let child in units.childNodes) {
+            var el = <HTMLOptionElement>units.childNodes[child];
+            if (typeof el == "object" && el.value == units.value) {
+              unitsVal = el.innerHTML;
+            }
+          }
+          avg_glcVal = avg_glc.value + " " + unitsVal;
+        } else {
+          unitsVal = Number(units.value);
+          avg_glcVal = Number(avg_glc.value) / unitsVal;
+        }
+      }
+    }
+    if (str)
+      return {
+        Gender: genderVal,
+        Age: ageVal,
+        Height: heightVal,
+        Weight: weightVal,
+        BMI: bmiVal,
+        "Ever married": StrMarry,
+        "Current job type": jobVal,
+        "Residence type": StrRes,
+        "Smoking status": smokeVal,
+        Hypertension: StrHyper,
+        "Heart disease": StrHrtDss,
+        "Average glucose level": avg_glcVal,
+      };
     return {
-      gender: Number(gender),
-      age: Number(age),
-      bmi: bmi,
+      gender: genderVal,
+      age: ageVal,
+      bmi: bmiVal,
       ever_married: isMarry,
-      work_type: Number(job),
+      work_type: jobVal,
       Residence_type: resType,
-      smoking_status: Number(smoke),
-      hypertension: hyper,
+      smoking_status: smokeVal,
+      hypertension: isHyper,
       heart_disease: hrtDss,
-      avg_glucose_level: avgGlc,
+      avg_glucose_level: avg_glcVal,
     };
   }
 
@@ -552,10 +687,14 @@ export class TestComponent implements OnInit {
           tests[Object.keys(tests).length + 1] = params;
 
           var results = docSnap.data()["results"];
+          var STRtests = docSnap.data()["STRtests"];
+          var STRparams = this.fillParams(true);
+          STRtests[Object.keys(STRtests).length + 1] = STRparams;
 
           this.Classify.classifyOne(params).subscribe(async (res: string) => {
             results[Object.keys(results).length + 1] = res;
             await updateDoc(docRef, {
+              STRtests,
               tests,
               results,
             });
@@ -599,16 +738,18 @@ export class TestComponent implements OnInit {
   }
 
   showGauge(val: string) {
+    let mediumRisk = 20;
+    let highRisk = 45;
     var target = getElementWithID("tar");
     target.style.display = "unset";
     if (val == "NaN") {
       target.style.display = "none";
       target.src = "";
-    } else if (parseFloat(val) >= 0 && parseFloat(val) < 20) {
+    } else if (parseFloat(val) >= 0 && parseFloat(val) < mediumRisk) {
       target.src = "../assets/img/lowRisk.png";
-    } else if (parseFloat(val) >= 20 && parseFloat(val) < 50) {
+    } else if (parseFloat(val) >= mediumRisk && parseFloat(val) < highRisk) {
       target.src = "../assets/img/mediumRisk.png";
-    } else if (parseFloat(val) >= 50 && parseFloat(val) <= 100) {
+    } else if (parseFloat(val) >= highRisk && parseFloat(val) <= 100) {
       target.src = "../assets/img/highRisk.png";
     } else {
       target.style.display = "none";

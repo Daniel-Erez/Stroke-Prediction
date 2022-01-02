@@ -37,7 +37,7 @@ import { Component, OnInit } from "@angular/core";
         height: 100%;
         background: url("src/assets/img/background.png") no-repeat;
         background-size: cover;
-        font-size: 2.5vw;
+        font-size:min(1.5rem,2.5vw);
       }
       #background div {
         position: absolute;

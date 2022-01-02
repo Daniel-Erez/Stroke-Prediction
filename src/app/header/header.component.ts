@@ -15,7 +15,7 @@ import { fire } from "src/environments/environment";
         aria-label="main navigation"
       >
         <div class="navbar-brand">
-          <a class="navbar-item brand-wrapper" routerLink="/logo">
+          <a class="navbar-item brand-wrapper" routerLink="">
             <img src="./assets/img/logo2.png" alt="logo" />
           </a>
 

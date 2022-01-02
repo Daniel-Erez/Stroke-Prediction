@@ -92,54 +92,34 @@ export class ProfileComponent implements OnInit {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      var tests = docSnap.data()["tests"];
+      var tests = docSnap.data()["STRtests"];
       var curTest = tests[Number(elementId)];
       var results = docSnap.data()["results"];
       var curRes = results[Number(elementId)];
       var arrCurTest = [];
       for (let key in curTest) {
         let value = curTest[key];
-        let units: string;
-        switch (key) {
-          case "age":
-            units = " Years old";
-            break;
-          case "bmi":
-            value = String(parseFloat(value.toFixed(2)));
-            units = " kg/m²";
-            break;
-          case "avg_glucose_level":
-            if (value != 0) {
-              value = String(parseFloat(value.toFixed(2)));
-              units = " mg/dL";
-            } else {
-              value = "Unknown";
-              units = "";
-            }
-            break;
-          default:
-            units = "";
-        }
-        arrCurTest.push(key + ": " + value + units);
+        arrCurTest.push(key + ": " + value);
       }
       if (curRes == "NaN") {
         curRes = await this.tryToClassify(elementId);
-        await sleep(700);
       }
-      arrCurTest.push("probability" + ": " + curRes + "%");
+      arrCurTest.push("Probability" + ": " + curRes + "%");
       arrCurTest.sort(function (a, b: string): number {
         let order = [
-          "gender",
-          "age",
-          "bmi",
-          "ever_married",
-          "work_type",
-          "Residence_type",
-          "smoking_status",
-          "hypertension",
-          "heart_disease",
-          "avg_glucose_level",
-          "probability",
+          "Gender",
+          "Age",
+          "Height",
+          "Weight",
+          "BMI",
+          "Ever married",
+          "Current job type",
+          "Residence type",
+          "Smoking status",
+          "Hypertension",
+          "Heart disease",
+          "Average glucose level",
+          "Probability",
         ];
         return (
           order.indexOf(a.slice(0, a.indexOf(":"))) -
@@ -154,22 +134,11 @@ export class ProfileComponent implements OnInit {
         openDiv.appendChild(document.createElement("br"));
         let value = arrCurTest[key];
         let type=value.slice(0, value.indexOf(":"));
-        
-        let isUnits=true;
-        if (value.indexOf(" ",value.indexOf(":")+2)==-1)  isUnits=false;
-        
-        let units=value.slice(value.indexOf(" ",value.indexOf(":")+2));
-        let code=value.slice(value.indexOf(":")+2,value.indexOf(" ",value.indexOf(":")+2));
-        if (!isUnits)  {
-          units="";
-          code=value.slice(value.indexOf(":")+2)
-        }
-        if (units==code) units="";
+
         let paramRow;
-        if (type == "probability")
-          paramRow = document.createElement("strong");
+        if (type == "Probability") paramRow = document.createElement("strong");
         else paramRow = document.createElement("span");
-        paramRow.innerHTML = type+": "+converter(code,type)+units;
+        paramRow.innerHTML = value;
         openDiv.appendChild(paramRow);
       }
     }
