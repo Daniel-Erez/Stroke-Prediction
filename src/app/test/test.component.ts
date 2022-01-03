@@ -339,6 +339,7 @@ import { ClassifyService } from "../classify.service";
       <div class="container has-text-centered">
         <br /><br /><br />
         <img id="tar" alt="result" />
+        <div id="tar-num" class="is-size-3"></div>
       </div>
     </div>
 
@@ -700,7 +701,7 @@ export class TestComponent implements OnInit {
             });
             //------------------------------------------continue here: after parameters sent successfully---------------------------------------------------------
             this.showGauge(res);
-            window.alert("your chances to have stroke are: " + res + "%");
+            window.alert("your odds to have stroke are: " + res + "%");
           });
         } else {
           // docSnap.data() will be undefined in this case
@@ -741,10 +742,13 @@ export class TestComponent implements OnInit {
     let mediumRisk = 15;
     let highRisk = 45;
     var target = getElementWithID("tar");
+    var targetText = getElementWithID("tar-num");
     target.style.display = "unset";
+    targetText.innerHTML="your odds to have stroke are: " + val + "%";
     if (val == "NaN") {
       target.style.display = "none";
       target.src = "";
+      targetText.innerHTML="";
     } else if (parseFloat(val) >= 0 && parseFloat(val) < mediumRisk) {
       target.src = "../assets/img/lowRisk.png";
     } else if (parseFloat(val) >= mediumRisk && parseFloat(val) < highRisk) {
@@ -754,6 +758,7 @@ export class TestComponent implements OnInit {
     } else {
       target.style.display = "none";
       target.src = "";
+      targetText.innerHTML="";
       console.log("something gone wrong :(");
     }
     target.scrollIntoView();
