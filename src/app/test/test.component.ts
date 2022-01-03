@@ -206,7 +206,7 @@ import { ClassifyService } from "../classify.service";
               <div class="select is-medium">
                 <select name="SmokingStastus" id="smoke_input">
                   <option value="2">Never smoked</option>
-                  <option value="3">smokes</option>
+                  <option value="3">Smokes</option>
                   <option value="1">Formerly smoked</option>
                 </select>
               </div>
@@ -615,7 +615,7 @@ export class TestComponent implements OnInit {
         "Smoking status": smokeVal,
         Hypertension: StrHyper,
         "Heart disease": StrHrtDss,
-        "Average glucose level": avg_glcVal,
+        "Average glucose": avg_glcVal,
       };
     return {
       gender: genderVal,
@@ -738,7 +738,7 @@ export class TestComponent implements OnInit {
   }
 
   showGauge(val: string) {
-    let mediumRisk = 20;
+    let mediumRisk = 15;
     let highRisk = 45;
     var target = getElementWithID("tar");
     target.style.display = "unset";

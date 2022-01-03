@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit {
           "Smoking status",
           "Hypertension",
           "Heart disease",
-          "Average glucose level",
+          "Average glucose",
           "Probability",
         ];
         return (
