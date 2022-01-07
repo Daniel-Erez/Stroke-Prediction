@@ -15,7 +15,12 @@ import { Component, OnInit } from "@angular/core";
         us to improve our algorithm and so<br />
         you helping us to help <strong> you </strong>
       </h2>
-
+      <br /><br /><br /><br />
+      <h3>How does it work?</h3><br />
+      <div class="container has-text-centered">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/EV74nBtivsw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      
       <br /><br /><br /><br />
       <h3>About Us</h3><br />
       <div class="columns">
