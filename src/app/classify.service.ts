@@ -6,7 +6,9 @@ import { map } from "rxjs";
   providedIn: "root",
 })
 export class ClassifyService {  
-  private url = "https://s7i18gqkx3.execute-api.us-east-1.amazonaws.com/beta";
+  private url_xgboost = "https://s7i18gqkx3.execute-api.us-east-1.amazonaws.com/beta";
+  private url_rfc ="https://km52hfjgpe.execute-api.us-east-1.amazonaws.com/beta";
+  private main_url=this.url_rfc;
   private active=false
   constructor(private http: HttpClient) {
     var params={
@@ -31,7 +33,7 @@ export class ClassifyService {
   classifyOne(test: any) {
     let json = { Tests: [test] };
 
-    return this.http.post<any>(this.url, JSON.stringify(json)).pipe(
+    return this.http.post<any>(this.main_url, JSON.stringify(json)).pipe(
       map((res) => {
         if (res.statusCode == 200) {
           //console.log(res);
@@ -48,7 +50,7 @@ export class ClassifyService {
   classifyMany(testsList: any) {
     let json = { Tests: testsList };
 
-    return this.http.post<any>(this.url, JSON.stringify(json)).pipe(
+    return this.http.post<any>(this.main_url, JSON.stringify(json)).pipe(
       map((res) => {
         if (res.statusCode == 200) {
           //console.log(res);
