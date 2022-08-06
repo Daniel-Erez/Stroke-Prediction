@@ -1,6 +1,7 @@
 # Strkpre
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+Visit the finish website in: https://daniel280200.github.io/
 
 ## Development server
 
