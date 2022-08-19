@@ -17,7 +17,11 @@ import { fire } from 'src/environments/environment';
   <app-footer></app-footer>
 
   `,
-  styles: []
+  styles: [`
+  .container{
+    width:clamp(15rem,90%, 70rem)
+  }
+  `]
 })
 export class AppComponent {
   async ngOnInit(): Promise<void> {

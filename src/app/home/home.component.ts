@@ -46,7 +46,7 @@ import { Component, OnInit } from "@angular/core";
         justify-content: center;
         background-color: white;
         border-radius: 50%;
-        opacity: 0.75;
+        opacity: 0.7;
       }
       #first_circle {
         top: 20%;
@@ -64,11 +64,6 @@ import { Component, OnInit } from "@angular/core";
       }
       #container a {
         text-align: center;
-      }
-      @media screen and (min-width: 1600px) {
-        #background {
-          font-size: 30px;
-        }
       }
     `,
   ],

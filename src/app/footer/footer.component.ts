@@ -11,7 +11,7 @@ import { Component, OnInit } from "@angular/core";
         <p class="is-size-7">Version 1.0.2</p>
       </div>
     </footer>
-    <!------------------------------start html code------------------------------>
+    <!------------------------------end html code------------------------------>
   `,
   styles: [],
 })

@@ -12,7 +12,7 @@ import { Component, OnInit } from "@angular/core";
         attack, we developed it in 2021. <br />
         We are using Machine Learning [...] <br />
         When you share with us the results that you got from the doctor you help
-        us to improve our algorithm and so<br />
+        us to improve our algorithm and so...<br />
         you helping us to help <strong> you </strong>
       </h2>
       <br /><br /><br /><br />
