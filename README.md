@@ -1,7 +1,7 @@
 # Strkpre
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.  
-Visit the finish website [HERE](https://daniel280200.github.io/Stroke-Prediction/#/).
+Visit the finish website [HERE](https://daniel-erez.github.io/Stroke-Prediction/#/).
 
 ## Development server
 
